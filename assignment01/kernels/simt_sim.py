@@ -18,6 +18,53 @@ contract: 实现 run(program) -> (regs, cycles)
 通过 pytest tests/test_simt_sim.py 即为完成。
 """
 
-
 def run(program):
-    raise NotImplementedError("从这里开始写")
+    def recursion(regs, program, mask):
+        beat = 0
+        for element in program:
+            flag = False
+            if len(element) == 2:
+                instuction = element[0]
+                k = element[1]
+                if instuction == "add":
+                    if any(mask):
+                        for i in range(len(regs)):
+                            if mask[i]:
+                                regs[i] += k
+                        beat += 1
+                else :
+                    if any(mask):
+                        for i in range(len(regs)):
+                            if mask[i]:
+                                regs[i] *= k
+                                flag = True
+                        beat += 1
+            else:
+                if any(mask):
+                    t = element[1]
+                    new_mask = []
+                    reversed_mask = []
+                    for i in range(len(regs)):
+                        if mask[i]:
+                            if regs[i] < t:
+                                new_mask.append(True)
+                                reversed_mask.append(False)
+                            else:
+                                new_mask.append(False)
+                                reversed_mask.append(True)
+                        else:
+                            new_mask.append(False)
+                            reversed_mask.append(False)
+                    if any(new_mask):
+                        beat += recursion(regs, element[2], new_mask)
+                    if any(reversed_mask):
+                        beat += recursion(regs, element[3], reversed_mask)
+        return beat
+
+    mask = [True] * 32
+    regs = list(range(32))
+    beat = 0
+    beat += recursion(regs, program, mask)
+    return (regs, beat)
+
+
