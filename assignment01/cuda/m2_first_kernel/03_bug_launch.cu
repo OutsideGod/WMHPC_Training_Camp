@@ -27,10 +27,10 @@ int main() {
     CUDA_CHECK(cudaMemcpy(d_a, h_a, bytes, cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(d_b, h_b, bytes, cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemset(d_c, 0, bytes));
-
-    int threads = 2048;
+    int threads = 258;
     int blocks = (n + threads - 1) / threads;
     vectorAdd<<<blocks, threads>>>(d_a, d_b, d_c, n);
+    CUDA_CHECK_KERNEL();
     // 注意：这里故意没有做任何错误检查。
 
     CUDA_CHECK(cudaMemcpy(h_c, d_c, bytes, cudaMemcpyDeviceToHost));
@@ -41,3 +41,7 @@ int main() {
 // 提示：kernel 启动语句后面补一行 CUDA_CHECK_KERNEL() 再跑一次，
 // 报错信息会告诉你该往哪个方向查。查完记得回答：为什么不加这一行时
 // 程序一声不吭？（问题 0.2 打印过的哪个上限和这里有关？）
+
+//报错信息让我往硬件限制不合规的方向查询
+//不加这一行时，threads分配超越了maxThreadsPerBlock（这里为1024），导致kernel返回void，cpu什么都没接收到就直接开始下一个命令了，最后结果为0，没有报错但是Fail
+
