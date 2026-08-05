@@ -37,13 +37,72 @@
 #include "common.h"
 
 #define BLOCK 256
+#define FULL_MASK 0xffffffff
 
 __global__ void reduce_interleaved(const float *in, float *out) {
     // TODO：从这里开始写（交错配对版本）
+    __shared__ float buf[BLOCK];
+    int fullidx = blockIdx.x * blockDim.x + threadIdx.x;
+    int threadidx = threadIdx.x;
+    buf[threadidx] = in[fullidx];
+    __syncthreads();
+    for (int i = 1; i < blockDim.x; i *= 2) {
+        if (threadidx % (2 * i) == 0) {
+            buf[threadidx] += buf[threadidx + i];
+        }
+        __syncthreads();
+    }
+    if(threadidx == 0) {
+        out[blockIdx.x] = buf[0];
+    }
 }
 
 __global__ void reduce_contiguous(const float *in, float *out) {
     // TODO：从这里开始写（连续配对版本）
+    __shared__ float buf[BLOCK];
+    int fullidx = blockIdx.x * blockDim.x + threadIdx.x;
+    int threadidx = threadIdx.x;
+    buf[threadidx] = in[fullidx];
+    __syncthreads();
+    for (int i = blockDim.x / 2; i > 0; i /= 2) {
+        if (i > threadidx) {
+            buf[threadidx] += buf[threadidx + i];
+        }
+        __syncthreads();
+    }
+    if(threadidx == 0)
+    {
+        out[blockIdx.x] = buf[0];
+    }
+}
+
+__global__ void reduce_optimus(const float *in, float *out) {
+    __shared__ float buf[BLOCK / 32];
+    int fullidx = blockIdx.x * blockDim.x + threadIdx.x;
+    int threadidx = threadIdx.x;
+    int warpidx = threadidx / 32;
+    int laneidx = threadidx % 32;
+    float val = in[fullidx];
+    for (int offset = 16; offset > 0; offset /= 2) {
+        val += __shfl_down_sync(FULL_MASK, val, offset);
+    }
+    if(laneidx == 0) {
+        buf[warpidx] = val;
+    }
+    __syncthreads();
+        val = 0.0f;
+
+    if (warpidx == 0) {
+        if (laneidx < BLOCK / 32) {
+            val = buf[laneidx];
+        }
+        for (int offset = 4; offset > 0; offset /= 2) {
+            val += __shfl_down_sync(FULL_MASK, val, offset);
+        }
+    }
+    if (threadidx == 0) {
+        out[blockIdx.x] = val;
+    }
 }
 
 // ---------------- 以下是判测与计时，不要修改 ----------------
@@ -96,8 +155,10 @@ int main() {
 
     float ms_i = run_one(reduce_interleaved, "interleaved", d_in, d_out, h_out,
                          h_partial, nblocks);
-    float ms_c = run_one(reduce_contiguous, "contiguous ", d_in, d_out, h_out,
+    float ms_c = run_one(reduce_contiguous, "contiguous", d_in, d_out, h_out,
                          h_partial, nblocks);
+    float ms_o = run_one(reduce_optimus, "optimus", d_in, d_out, h_out,
+                     h_partial, nblocks);
     // 阈值 1.5x：A100 实测 2.22x、V100 实测 2.33x，两版写成一样时是 ~1x。
     float ratio = report_speedup("interleaved / contiguous", ms_i, ms_c, 1.5f,
                                  "两版耗时几乎一样，检查是不是写成同一个实现了");

@@ -14,3 +14,4 @@ int main() {
     CUDA_CHECK_KERNEL();
     return 0;
 }
+//顺序由硬件调度器决定，不可以依赖顺序，Block之间互不依赖且无序执行

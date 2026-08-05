@@ -14,7 +14,7 @@ __global__ void reverse_blocks(const float *in, float *out, int n) {
     int t = threadIdx.x;
 
     buf[t] = in[base + t];
-    __syncthreads();  // <-- 实验对象
+    //__syncthreads();  // <-- 实验对象
     out[base + t] = buf[BLOCK - 1 - t];
 }
 
@@ -43,3 +43,5 @@ int main() {
     REPORT(check_close(h_out, h_ref, n));
     return 0;
 }
+//1.因为block里的warp执行步调不一定一致，后来的warp可能读到先来的warp的垃圾值，所以个block必须sync，如果去掉out[base + t] = buf[BLOCK - 1 - t];则不用sync，线程间依赖本质是这一句
+//2.t在线程124-131的时候在同一个warp，一定是严格的先存后覆盖，不会出问题
