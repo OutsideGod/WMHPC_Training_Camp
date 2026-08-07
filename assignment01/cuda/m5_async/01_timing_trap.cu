@@ -45,3 +45,5 @@ int main() {
     printf("cudaEvent 计时      : %10.4f ms\n", ms_event);
     return 0;
 }
+//1.第三种
+//2.第一种只包含cpu launch的时间，因为cpu的stream和gpu是异步的，没有经过同步直接掐表；第三种包含cpu launch、kernel实际运行时间、cpu等待同步开销

@@ -85,3 +85,5 @@ int main() {
     CUDA_CHECK(cudaFree(d_c));
     return 0;
 }
+//2.occupancy降低导致并行block数减少导致resident warp减少，最终导致无法隐藏访问内存时的延迟，最后结果是带宽下降
+//3.并非单调下降，Blackwell架构发力了

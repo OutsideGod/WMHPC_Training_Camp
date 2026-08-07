@@ -43,3 +43,4 @@ int main() {
     }
     return 0;
 }
+//从1-8带宽下降是由于对warp的利用率逐渐降低导致，16突然升高是因为在这个stride下差不多恰好一个thread占用一个l2cache

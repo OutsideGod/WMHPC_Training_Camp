@@ -21,7 +21,20 @@ __global__ void histogram_naive(const unsigned char *data, unsigned int *hist,
 
 __global__ void histogram_priv(const unsigned char *data, unsigned int *hist,
                                int n) {
-    // TODO：从这里开始写（shared memory 私有化版本）
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    int stride = gridDim.x * blockDim.x;
+    __shared__ unsigned int sh[BINS];
+    for (int j = threadIdx.x; j < BINS; j += blockDim.x) {
+        sh[j] = 0;
+    }
+    __syncthreads();
+    for (; i < n; i += stride) {
+        atomicAdd(&sh[data[i]], 1u);
+    }
+    __syncthreads();
+    for (int j = threadIdx.x; j < BINS; j += blockDim.x) {
+        atomicAdd(&hist[j], sh[j]);
+    }
 }
 
 // ---------------- 以下是判测与计时，不要修改 ----------------
@@ -95,3 +108,5 @@ int main() {
     emit_result("4.6", "pass", metrics);
     return 0;
 }
+
+//make_shared节省了block内部改变global内存的时间，转而改变shared内存，然后打包再去改变global
