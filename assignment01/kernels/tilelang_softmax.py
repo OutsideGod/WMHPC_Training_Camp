@@ -22,7 +22,36 @@ Tip: elementwise + 行内归约的 kernel 大概率是带宽瓶颈，可以想�
 import torch
 import tilelang
 import tilelang.language as T
+from tilelang import jit
 
+@jit
+def make_softmax(M, N, dtype = "float32"):
+    N_sharp = 1 << (N - 1).bit_length()
+
+    @T.prim_func
+    def main(A : T.Tensor((M, N), dtype), B : T.Tensor((M, N), dtype)):
+        with T.Kernel(M, threads = 256) as dx:
+            A_local = T.alloc_fragment((N_sharp, ), dtype)
+            maximum = T.alloc_fragment((1, ), dtype)
+            s = T.alloc_fragment((1, ), dtype)
+
+            for i in T.Parallel(N_sharp):
+                A_local[i] = T.if_then_else(i < N, A[dx, i], T.infinity(dtype) * -1)
+
+            T.reduce_max(A_local, maximum)
+
+            for i in T.Parallel(N_sharp):
+                A_local[i] = T.exp(A_local[i] - maximum[0])
+
+            T.reduce_sum(A_local, s)
+
+            for i in T.Parallel(N):
+                B[dx, i] = A_local[i] / s[0]
+    return main
 
 def softmax(x: torch.Tensor) -> torch.Tensor:
-    raise NotImplementedError("从这里开始写")
+    M, N = x.shape
+    B = torch.empty_like(x)
+    softmax_func = make_softmax(M, N)
+    softmax_func(x, B)
+    return B
