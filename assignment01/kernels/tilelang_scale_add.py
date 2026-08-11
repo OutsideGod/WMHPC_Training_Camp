@@ -12,8 +12,8 @@ import tilelang.language as T
 def make_scale_add(M, N, block_M=32, block_N=32, dtype="float32"):
     @T.prim_func
     def scale_add(
-        X: T.Buffer((M, N), dtype),
-        Y: T.Buffer((M, N), dtype),
+        X: T.Tensor((M, N), dtype),
+        Y: T.Tensor((M, N), dtype),
     ):
         # ====== 空 1：二维 CTA grid——x 方向要多少个 block（管 N 列），
         #         y 方向要多少个（管 M 行）？提示：T.ceildiv ======

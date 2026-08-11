@@ -16,8 +16,8 @@ import tilelang.language as T
 def make_scale2d(M, N, block_M=32, block_N=32, dtype="float32"):
     @T.prim_func
     def scale2d(
-        X: T.Buffer((M, N), dtype),
-        Y: T.Buffer((M, N), dtype),
+        X: T.Tensor((M, N), dtype),
+        Y: T.Tensor((M, N), dtype),
     ):
         # ====== 空 1：二维 CTA grid，和 7.3 一样——x 方向管 N 列，
         #         y 方向管 M 行，提示：T.ceildiv ======
