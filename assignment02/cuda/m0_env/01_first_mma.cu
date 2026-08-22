@@ -87,3 +87,7 @@ int main() {
         printf("PASS\n");
     return bad != 0;
 }
+
+// CUDA error cudaErrorNoKernelImageForDevice at m0_env/01_first_mma.cu:76: no kernel image is available for execution on the device
+// make: *** [Makefile:42: run/m0_env/01_first_mma] Error 1
+// rm bin/m0_env/01_first_mma
