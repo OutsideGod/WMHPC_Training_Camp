@@ -23,10 +23,10 @@ static int a_row_of(int lane, int i) {
     return (r & 1) * 8 + gid;
 }
 static int a_col_of(int lane, int i) {
-    int tid = lane & 3;
+    int tig = lane & 3;
     int r = i >> 2;
     int j = i & 3;
-    return (r >> 1) * 16 + tid * 4 + j;
+    return (r >> 1) * 16 + tig * 4 + j;
 }
 static int b_row_of(int lane, int i) {
     int tig = lane & 3;
