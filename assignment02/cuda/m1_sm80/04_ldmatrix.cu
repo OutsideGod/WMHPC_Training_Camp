@@ -24,16 +24,58 @@
 // 想清楚哪种布局能满足它。
 //
 // TODO: 实现两个装载函数。
+__device__ __forceinline__ uint32_t smem_u32(const void* ptr) {
+    return static_cast<uint32_t>(__cvta_generic_to_shared(ptr));
+}
+
 __device__ void load_manual(const uint8_t* sA, const uint8_t* sBk,
                             const uint8_t* sBn, unsigned (&a)[4],
                             unsigned (&b)[2]) {
-    (void)sA; (void)sBk; (void)sBn; (void)a; (void)b;
+    int lane = threadIdx.x & 31;
+    int gid = lane >> 2;
+    int tig = lane & 3;
+    int row = 0;
+    int col = 0;
+    for (int i = 0; i < 4; i++) {
+        row = (i & 1) * 8 + gid;
+        col = (i >> 1) * 16 + tig * 4;
+        a[i] = *reinterpret_cast<const uint32_t*>(&sA[row * 32 + col]);
+    }
+
+    int k = 0;
+    int n = 0;
+    for (int i = 0; i < 2; i++) {
+        k = i * 16 + tig * 4;
+        n = gid;
+        b[i] = *reinterpret_cast<const uint32_t*>(&sBk[n * 32 + k]);
+    }
 }
 
 __device__ void load_ldsm(const uint8_t* sA, const uint8_t* sBk,
                           const uint8_t* sBn, unsigned (&a)[4],
                           unsigned (&b)[2]) {
-    (void)sA; (void)sBk; (void)sBn; (void)a; (void)b;
+    int lane = threadIdx.x & 31;
+    int Arow = lane & 15;
+    int Acol = (lane >> 4) * 16;
+    uint32_t addr = smem_u32(&sA[Arow * 32 + Acol]);
+    asm volatile(
+        "ldmatrix.sync.aligned.m8n8.x4.shared.b16 {%0, %1, %2, %3}, [%4];"
+        : "=r"(a[0]), "=r"(a[1]), "=r"(a[2]), "=r"(a[3])
+        : "r"(addr)
+    );
+    int Brow = lane & 7;
+    int Bcol = (lane >> 3) * 16;
+    if (lane < 16) {
+        addr = smem_u32(&sBk[Brow * 32 + Bcol]);
+    } 
+    else {
+        addr = smem_u32(&sBk[0]);
+    }
+    asm volatile(
+        "ldmatrix.sync.aligned.m8n8.x2.shared.b16 {%0, %1}, [%2];"
+        : "=r"(b[0]), "=r"(b[1])
+        : "r"(addr)
+    );
 }
 
 template <bool USE_LDSM>
