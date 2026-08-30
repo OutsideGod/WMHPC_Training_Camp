@@ -16,6 +16,11 @@ def get_nvcc_thread_args():
     return ["--threads", nvcc_threads]
 
 
+def get_k2_vsplit_args():
+    """Compile the experimental two-CTA K2 V-split when explicitly enabled."""
+    return ["-DFLASH_KDA_K2_VSPLIT=1"] if is_flag_set("FLASH_KDA_K2_VSPLIT") else []
+
+
 SUPPORTED_CUDA_ARCHS = ["90a", "100a", "103a", "120a"]
 
 
@@ -66,7 +71,7 @@ ext_modules = [
             os.path.join(this_dir, 'csrc'),
         ],
         extra_compile_args={
-            'cxx': ['-O3', '-Wno-psabi'],
+            'cxx': ['-O3', '-Wno-psabi', *get_k2_vsplit_args()],
             'nvcc': [
                 '-O3',
                 '-U__CUDA_NO_HALF_OPERATORS__',
@@ -78,6 +83,7 @@ ext_modules = [
                 '--use_fast_math',
                 '--ptxas-options=-v,--register-usage-level=10,--warn-on-spills',
                 '-lineinfo',
+                *get_k2_vsplit_args(),
                 *get_nvcc_thread_args(),
                 *get_arch_flags(),
             ],

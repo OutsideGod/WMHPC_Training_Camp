@@ -183,7 +183,9 @@ void launch_fwd(
     // ===== Launch Kernel 2 (recurrence) =====
 #if BLOCK_LEVEL_K2 >= 0
     {
-        constexpr int kK2Threads = 32 * 2 + 128;
+        constexpr bool kVSplitK2 = FLASH_KDA_K2_VSPLIT != 0;
+        constexpr int kK2ComputeThreads = kVSplitK2 ? 64 : 128;
+        constexpr int kK2Threads = 32 * 2 + kK2ComputeThreads;
         using SharedStorageK2T = SharedStorageK2<K2L, kInputStages, kOutputStages>;
         int smem_size_k2 = sizeof(SharedStorageK2T);
 
@@ -195,12 +197,12 @@ void launch_fwd(
             decltype(tma_store_final_state),
             decltype(tma_store_out),
             CHUNK, D, kInputStages, kOutputStages, kK2Threads,
-            HasStateIn, HasStateOut, StateFP32, IsVarlen
+            HasStateIn, HasStateOut, StateFP32, IsVarlen, kVSplitK2
         >;
 
         cudaFuncSetAttribute(kernel2, cudaFuncAttributeMaxDynamicSharedMemorySize, smem_size_k2);
 
-        dim3 grid_k2(N, H);
+        dim3 grid_k2(N, H, kVSplitK2 ? 2 : 1);
         dim3 block_k2(kK2Threads);
 
         kernel2<<<grid_k2, block_k2, smem_size_k2, stream>>>(
@@ -210,7 +212,7 @@ void launch_fwd(
             tma_load_initial_state,
             tma_store_final_state,
             tma_store_out,
-            out_ptr, T_total, H, N, cu_seqlens_ptr, total_tiles
+            final_state_ptr, out_ptr, T_total, H, N, cu_seqlens_ptr, total_tiles
         );
     }
 #endif

@@ -3,6 +3,16 @@
 
 #include <cutlass/bfloat16.h>
 
+// Experimental C1 challenge path.  The default build remains bit-for-bit on
+// the original one-CTA-per-(sequence, head) K2 launch.  Set the compile-time
+// flag to 1 to launch two independent CTAs, each owning 64 value columns.
+#ifndef FLASH_KDA_K2_VSPLIT
+#define FLASH_KDA_K2_VSPLIT 0
+#endif
+
+static_assert(FLASH_KDA_K2_VSPLIT == 0 || FLASH_KDA_K2_VSPLIT == 1,
+              "FLASH_KDA_K2_VSPLIT must be 0 or 1");
+
 template <int D, bool HasStateIn = true, bool HasStateOut = true, bool StateFP32 = false, bool IsVarlen = true>
 void launch_fwd(
     cutlass::bfloat16_t const* q_ptr,

@@ -1,0 +1,10 @@
+chunk,neumann_gemms,k1_flop/token,k2_flop/token,total_flop/token,workspace_MiB,workspace_B/token/head,exp(+5C)_fp32,exp(-5C)_bf16,tcgen05_row_util
+16,6,11264,106496,117760,648,864,5.54062248e+34,1.80555932e-35,0.25
+32,8,32768,114688,147456,684,912,inf,0,0.5
+64,10,114688,131072,245760,774,1032,inf,0,1
+
+Notes:
+- exp(+5C) overflowing or exp(-5C) becoming zero is a hard failure.
+- Workspace is active tile payload; it excludes the aligned prefix buffer
+  and the wrapper's conservative extra-N-tile allocation.
+- FLOPs exclude normalization, gate activation, decay, and copies.

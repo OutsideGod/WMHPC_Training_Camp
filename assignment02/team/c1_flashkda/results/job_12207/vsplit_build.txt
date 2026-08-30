@@ -1,0 +1,7 @@
+Using Python 3.12.13 environment at: /tmp/flashkda-c1-12207/venv
+Resolved 1 package in 1.55s
+   Building flash-kda @ file:///tmp/flashkda-c1-12207/FlashKDA
+      Built flash-kda @ file:///tmp/flashkda-c1-12207/FlashKDA
+Prepared 1 package in 35.05s
+Installed 1 package in 0.65ms
+ + flash-kda==0.0.1+1ce47ea (from file:///tmp/flashkda-c1-12207/FlashKDA)

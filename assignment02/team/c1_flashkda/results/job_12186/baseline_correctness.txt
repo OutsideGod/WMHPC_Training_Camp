@@ -1,0 +1,11 @@
+Testing shape: [1, 8192, 96, 128]
+67072.0 67072.0
+  output | avg_rtol: 0.0, max_rtol: 0.0
+  output | avg_atol: 0.0, max_atol: 0.0
+Success: kernel == torch ref (exact match)
+
+test_fwd_varlen: seq_lens=[1300, 547, 2048, 963, 271, 3063], T_total=8192, N=6, H=96, D=128
+358400.0 358400.0
+  output | avg_rtol: 0.0, max_rtol: 0.0
+  output | avg_atol: 0.0, max_atol: 0.0
+Success: varlen kernel == torch ref (exact match)

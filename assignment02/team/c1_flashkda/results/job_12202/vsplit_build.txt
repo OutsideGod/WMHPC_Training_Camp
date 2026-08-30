@@ -1,0 +1,1711 @@
+Using Python 3.12.13 environment at: /tmp/flashkda-c1-12202/venv
+Resolved 1 package in 1.50s
+   Building flash-kda @ file:///tmp/flashkda-c1-12202/FlashKDA
+  × Failed to build `flash-kda @ file:///tmp/flashkda-c1-12202/FlashKDA`
+  ├─▶ The build backend returned an error
+  ╰─▶ Call to `setuptools.build_meta:__legacy__.build_editable` failed (exit
+      status: 1)
+
+      [stdout]
+      running editable_wheel
+      creating
+      /tmp/flashkda-c1-12202/uv-cache/builds-v0/.tmp65e7Gx/.tmp-3roxsdtt/flash_kda.egg-info
+      writing
+      /tmp/flashkda-c1-12202/uv-cache/builds-v0/.tmp65e7Gx/.tmp-3roxsdtt/flash_kda.egg-info/PKG-INFO
+      writing dependency_links to
+      /tmp/flashkda-c1-12202/uv-cache/builds-v0/.tmp65e7Gx/.tmp-3roxsdtt/flash_kda.egg-info/dependency_links.txt
+      writing top-level names to
+      /tmp/flashkda-c1-12202/uv-cache/builds-v0/.tmp65e7Gx/.tmp-3roxsdtt/flash_kda.egg-info/top_level.txt
+      writing manifest file
+      '/tmp/flashkda-c1-12202/uv-cache/builds-v0/.tmp65e7Gx/.tmp-3roxsdtt/flash_kda.egg-info/SOURCES.txt'
+      reading manifest file
+      '/tmp/flashkda-c1-12202/uv-cache/builds-v0/.tmp65e7Gx/.tmp-3roxsdtt/flash_kda.egg-info/SOURCES.txt'
+      adding license file 'LICENSE'
+      writing manifest file
+      '/tmp/flashkda-c1-12202/uv-cache/builds-v0/.tmp65e7Gx/.tmp-3roxsdtt/flash_kda.egg-info/SOURCES.txt'
+      creating
+      '/tmp/flashkda-c1-12202/uv-cache/builds-v0/.tmp65e7Gx/.tmp-3roxsdtt/flash_kda-0.0.1+1ce47ea.dist-info'
+      creating
+      /tmp/flashkda-c1-12202/uv-cache/builds-v0/.tmp65e7Gx/.tmp-3roxsdtt/flash_kda-0.0.1+1ce47ea.dist-info/WHEEL
+      running build_py
+      running build_ext
+      building 'flash_kda_C' extension
+      [1/2] /usr/local/cuda/bin/nvcc -MD -MF
+      /tmp/tmpw54u3mb5.build-temp/csrc/smxx/fwd_launch.o.d
+      -I/tmp/flashkda-c1-12202/FlashKDA/cutlass/include
+      -I/tmp/flashkda-c1-12202/FlashKDA/cutlass/examples/common
+      -I/tmp/flashkda-c1-12202/FlashKDA/cutlass/tools/util/include
+      -I/tmp/flashkda-c1-12202/FlashKDA/csrc
+      -I/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/include
+      -I/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include
+      -I/usr/local/cuda/include -I/tmp/flashkda-c1-12202/venv/include
+      -I/home/lcpu/31233791/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/include/python3.12
+      -c -c /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+      -o /tmp/tmpw54u3mb5.build-temp/csrc/smxx/fwd_launch.o
+      -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__
+      -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__
+      --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"''
+      -O3 -U__CUDA_NO_HALF_OPERATORS__ -U__CUDA_NO_HALF_CONVERSIONS__
+      -U__CUDA_NO_HALF2_OPERATORS__ -U__CUDA_NO_BFLOAT16_CONVERSIONS__
+      --expt-relaxed-constexpr --expt-extended-lambda --use_fast_math
+      --ptxas-options=-v,--register-usage-level=10,--warn-on-spills
+      -lineinfo -DFLASH_KDA_K2_VSPLIT=1 --threads 8 -gencode
+      arch=compute_103a,code=sm_103a -DTORCH_API_INCLUDE_EXTENSION_H
+      -DTORCH_EXTENSION_NAME=flash_kda_C -std=c++20
+      FAILED: [code=255] /tmp/tmpw54u3mb5.build-temp/csrc/smxx/fwd_launch.o
+      /usr/local/cuda/bin/nvcc -MD -MF
+      /tmp/tmpw54u3mb5.build-temp/csrc/smxx/fwd_launch.o.d
+      -I/tmp/flashkda-c1-12202/FlashKDA/cutlass/include
+      -I/tmp/flashkda-c1-12202/FlashKDA/cutlass/examples/common
+      -I/tmp/flashkda-c1-12202/FlashKDA/cutlass/tools/util/include
+      -I/tmp/flashkda-c1-12202/FlashKDA/csrc
+      -I/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/include
+      -I/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include
+      -I/usr/local/cuda/include -I/tmp/flashkda-c1-12202/venv/include
+      -I/home/lcpu/31233791/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/include/python3.12
+      -c -c /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+      -o /tmp/tmpw54u3mb5.build-temp/csrc/smxx/fwd_launch.o
+      -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__
+      -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__
+      --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"''
+      -O3 -U__CUDA_NO_HALF_OPERATORS__ -U__CUDA_NO_HALF_CONVERSIONS__
+      -U__CUDA_NO_HALF2_OPERATORS__ -U__CUDA_NO_BFLOAT16_CONVERSIONS__
+      --expt-relaxed-constexpr --expt-extended-lambda --use_fast_math
+      --ptxas-options=-v,--register-usage-level=10,--warn-on-spills
+      -lineinfo -DFLASH_KDA_K2_VSPLIT=1 --threads 8 -gencode
+      arch=compute_103a,code=sm_103a -DTORCH_API_INCLUDE_EXTENSION_H
+      -DTORCH_EXTENSION_NAME=flash_kda_C -std=c++20
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_kernel2.cuh(818): error:
+      no operator "=" matches these operands
+                  operand types are: cute::ArithmeticTuple<int, int, int> =
+      cutlass::bfloat16_t
+                                g_final(seq_idx * H + head_idx, v_col, k_col)
+      =
+                                                                              ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function
+      "cute::ArithmeticTuple<T...>::operator=(cute::ArithmeticTuple<int, int,
+      int> &&) [with T=<int, int, int>]" does not match because argument #1
+      does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function "cute::ArithmeticTuple<T...>::operator=(const
+      cute::ArithmeticTuple<int, int, int> &) [with T=<int, int, int>]" does
+      not match because argument #1 does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+                detected during:
+                  instantiation of "void
+      _flash_kda_fwd_recurrence<TmaLoadV,TmaLoadBeta,TmaLoadWsKD,TmaLoadWsQD,TmaLoadWsKR,TmaLoadWsGT,TmaLoadWsINV,TmaLoadWsMqk,TmaLoadState,TmaStoreState,TmaStoreOut,CHUNK,D,InputStages,OutputStages,NumThreads,HasStateIn,HasStateOut,StateFP32,IsVarlen,VSplitK2>(TmaLoadV,
+      TmaLoadBeta, TmaLoadWsKD, TmaLoadWsQD, TmaLoadWsKR, TmaLoadWsGT,
+      TmaLoadWsINV, TmaLoadWsMqk, TmaLoadState, TmaStoreState, TmaStoreOut,
+      cutlass::bfloat16_t *, int, int, int, const int64_t *, int) [with
+      TmaLoadV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadBeta=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<512>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_32>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 0>>> &,
+      const cute::Swizzle<0, 4, 3> &>>, cutlass::bfloat16_t>,
+      cute::Layout<cute::tuple<cute::_1, cute::tuple<cute::tuple<cute::_32,
+      cute::_1>>>, cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_32>>,
+      TmaLoadWsKD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsQD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsKR=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsGT=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<4096>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      1>, cute::ScaledBasis<cute::C<1>, 0>>, const
+      cute::Layout<cute::tuple<cute::_128, cute::_1>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<0,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::_128, cute::_1>>>,
+      cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_1, cute::_128>>,
+      TmaLoadWsINV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadWsMqk=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<16384>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<16384>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreOut=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>, CHUNK=16,
+      D=128, InputStages=3, OutputStages=2, NumThreads=128, HasStateIn=true,
+      HasStateOut=true, StateFP32=false, IsVarlen=true, VSplitK2=true]" at
+      line 201 of /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+                  instantiation of "void
+      launch_fwd<D,HasStateIn,HasStateOut,StateFP32,IsVarlen>(const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const void *, float, void *, cutlass::bfloat16_t
+      *, void *, int, int, int, int, const int64_t *, const float *,
+      const float *, float, cudaStream_t) [with D=128, HasStateIn=true,
+      HasStateOut=true, StateFP32=false, IsVarlen=true]" at line 239 of
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_kernel2.cuh(860): error:
+      no operator "=" matches these operands
+                  operand types are: cute::ArithmeticTuple<int, int, int>
+      = float
+                                g_final(seq_idx * H + head_idx, v_col, k_col)
+      =
+                                                                              ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function
+      "cute::ArithmeticTuple<T...>::operator=(cute::ArithmeticTuple<int, int,
+      int> &&) [with T=<int, int, int>]" does not match because argument #1
+      does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function "cute::ArithmeticTuple<T...>::operator=(const
+      cute::ArithmeticTuple<int, int, int> &) [with T=<int, int, int>]" does
+      not match because argument #1 does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+                detected during:
+                  instantiation of "void
+      _flash_kda_fwd_recurrence<TmaLoadV,TmaLoadBeta,TmaLoadWsKD,TmaLoadWsQD,TmaLoadWsKR,TmaLoadWsGT,TmaLoadWsINV,TmaLoadWsMqk,TmaLoadState,TmaStoreState,TmaStoreOut,CHUNK,D,InputStages,OutputStages,NumThreads,HasStateIn,HasStateOut,StateFP32,IsVarlen,VSplitK2>(TmaLoadV,
+      TmaLoadBeta, TmaLoadWsKD, TmaLoadWsQD, TmaLoadWsKR, TmaLoadWsGT,
+      TmaLoadWsINV, TmaLoadWsMqk, TmaLoadState, TmaStoreState, TmaStoreOut,
+      cutlass::bfloat16_t *, int, int, int, const int64_t *, int) [with
+      TmaLoadV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadBeta=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<512>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_32>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 0>>> &,
+      const cute::Swizzle<0, 4, 3> &>>, cutlass::bfloat16_t>,
+      cute::Layout<cute::tuple<cute::_1, cute::tuple<cute::tuple<cute::_32,
+      cute::_1>>>, cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_32>>,
+      TmaLoadWsKD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsQD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsKR=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsGT=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<4096>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      1>, cute::ScaledBasis<cute::C<1>, 0>>, const
+      cute::Layout<cute::tuple<cute::_128, cute::_1>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<0,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::_128, cute::_1>>>,
+      cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_1, cute::_128>>,
+      TmaLoadWsINV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadWsMqk=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<32768>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<1,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<32768>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<1,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreOut=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>, CHUNK=16,
+      D=128, InputStages=3, OutputStages=2, NumThreads=128, HasStateIn=true,
+      HasStateOut=true, StateFP32=true, IsVarlen=true, VSplitK2=true]" at line
+      201 of /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+                  instantiation of "void
+      launch_fwd<D,HasStateIn,HasStateOut,StateFP32,IsVarlen>(const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const void *, float, void *, cutlass::bfloat16_t
+      *, void *, int, int, int, int, const int64_t *, const float *,
+      const float *, float, cudaStream_t) [with D=128, HasStateIn=true,
+      HasStateOut=true, StateFP32=true, IsVarlen=true]" at line 239 of
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_kernel2.cuh(818): error:
+      no operator "=" matches these operands
+                  operand types are: cute::ArithmeticTuple<int, int, int> =
+      cutlass::bfloat16_t
+                                g_final(seq_idx * H + head_idx, v_col, k_col)
+      =
+                                                                              ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function
+      "cute::ArithmeticTuple<T...>::operator=(cute::ArithmeticTuple<int, int,
+      int> &&) [with T=<int, int, int>]" does not match because argument #1
+      does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function "cute::ArithmeticTuple<T...>::operator=(const
+      cute::ArithmeticTuple<int, int, int> &) [with T=<int, int, int>]" does
+      not match because argument #1 does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+                detected during:
+                  instantiation of "void
+      _flash_kda_fwd_recurrence<TmaLoadV,TmaLoadBeta,TmaLoadWsKD,TmaLoadWsQD,TmaLoadWsKR,TmaLoadWsGT,TmaLoadWsINV,TmaLoadWsMqk,TmaLoadState,TmaStoreState,TmaStoreOut,CHUNK,D,InputStages,OutputStages,NumThreads,HasStateIn,HasStateOut,StateFP32,IsVarlen,VSplitK2>(TmaLoadV,
+      TmaLoadBeta, TmaLoadWsKD, TmaLoadWsQD, TmaLoadWsKR, TmaLoadWsGT,
+      TmaLoadWsINV, TmaLoadWsMqk, TmaLoadState, TmaStoreState, TmaStoreOut,
+      cutlass::bfloat16_t *, int, int, int, const int64_t *, int) [with
+      TmaLoadV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadBeta=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<512>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_32>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 0>>> &,
+      const cute::Swizzle<0, 4, 3> &>>, cutlass::bfloat16_t>,
+      cute::Layout<cute::tuple<cute::_1, cute::tuple<cute::tuple<cute::_32,
+      cute::_1>>>, cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_32>>,
+      TmaLoadWsKD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsQD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsKR=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsGT=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<4096>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      1>, cute::ScaledBasis<cute::C<1>, 0>>, const
+      cute::Layout<cute::tuple<cute::_128, cute::_1>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<0,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::_128, cute::_1>>>,
+      cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_1, cute::_128>>,
+      TmaLoadWsINV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadWsMqk=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<16384>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<16384>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreOut=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>, CHUNK=16,
+      D=128, InputStages=3, OutputStages=2, NumThreads=128, HasStateIn=false,
+      HasStateOut=true, StateFP32=false, IsVarlen=true, VSplitK2=true]" at
+      line 201 of /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+                  instantiation of "void
+      launch_fwd<D,HasStateIn,HasStateOut,StateFP32,IsVarlen>(const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const void *, float, void *, cutlass::bfloat16_t
+      *, void *, int, int, int, int, const int64_t *, const float *,
+      const float *, float, cudaStream_t) [with D=128, HasStateIn=false,
+      HasStateOut=true, StateFP32=false, IsVarlen=true]" at line 239 of
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_kernel2.cuh(860): error:
+      no operator "=" matches these operands
+                  operand types are: cute::ArithmeticTuple<int, int, int>
+      = float
+                                g_final(seq_idx * H + head_idx, v_col, k_col)
+      =
+                                                                              ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function
+      "cute::ArithmeticTuple<T...>::operator=(cute::ArithmeticTuple<int, int,
+      int> &&) [with T=<int, int, int>]" does not match because argument #1
+      does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function "cute::ArithmeticTuple<T...>::operator=(const
+      cute::ArithmeticTuple<int, int, int> &) [with T=<int, int, int>]" does
+      not match because argument #1 does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+                detected during:
+                  instantiation of "void
+      _flash_kda_fwd_recurrence<TmaLoadV,TmaLoadBeta,TmaLoadWsKD,TmaLoadWsQD,TmaLoadWsKR,TmaLoadWsGT,TmaLoadWsINV,TmaLoadWsMqk,TmaLoadState,TmaStoreState,TmaStoreOut,CHUNK,D,InputStages,OutputStages,NumThreads,HasStateIn,HasStateOut,StateFP32,IsVarlen,VSplitK2>(TmaLoadV,
+      TmaLoadBeta, TmaLoadWsKD, TmaLoadWsQD, TmaLoadWsKR, TmaLoadWsGT,
+      TmaLoadWsINV, TmaLoadWsMqk, TmaLoadState, TmaStoreState, TmaStoreOut,
+      cutlass::bfloat16_t *, int, int, int, const int64_t *, int) [with
+      TmaLoadV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadBeta=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<512>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_32>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 0>>> &,
+      const cute::Swizzle<0, 4, 3> &>>, cutlass::bfloat16_t>,
+      cute::Layout<cute::tuple<cute::_1, cute::tuple<cute::tuple<cute::_32,
+      cute::_1>>>, cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_32>>,
+      TmaLoadWsKD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsQD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsKR=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsGT=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<4096>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      1>, cute::ScaledBasis<cute::C<1>, 0>>, const
+      cute::Layout<cute::tuple<cute::_128, cute::_1>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<0,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::_128, cute::_1>>>,
+      cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_1, cute::_128>>,
+      TmaLoadWsINV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadWsMqk=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<32768>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<1,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<32768>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<1,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreOut=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>, CHUNK=16,
+      D=128, InputStages=3, OutputStages=2, NumThreads=128, HasStateIn=false,
+      HasStateOut=true, StateFP32=true, IsVarlen=true, VSplitK2=true]" at line
+      201 of /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+                  instantiation of "void
+      launch_fwd<D,HasStateIn,HasStateOut,StateFP32,IsVarlen>(const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const void *, float, void *, cutlass::bfloat16_t
+      *, void *, int, int, int, int, const int64_t *, const float *,
+      const float *, float, cudaStream_t) [with D=128, HasStateIn=false,
+      HasStateOut=true, StateFP32=true, IsVarlen=true]" at line 239 of
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_kernel2.cuh(818): error:
+      no operator "=" matches these operands
+                  operand types are: cute::ArithmeticTuple<int, int, int> =
+      cutlass::bfloat16_t
+                                g_final(seq_idx * H + head_idx, v_col, k_col)
+      =
+                                                                              ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function
+      "cute::ArithmeticTuple<T...>::operator=(cute::ArithmeticTuple<int, int,
+      int> &&) [with T=<int, int, int>]" does not match because argument #1
+      does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function "cute::ArithmeticTuple<T...>::operator=(const
+      cute::ArithmeticTuple<int, int, int> &) [with T=<int, int, int>]" does
+      not match because argument #1 does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+                detected during:
+                  instantiation of "void
+      _flash_kda_fwd_recurrence<TmaLoadV,TmaLoadBeta,TmaLoadWsKD,TmaLoadWsQD,TmaLoadWsKR,TmaLoadWsGT,TmaLoadWsINV,TmaLoadWsMqk,TmaLoadState,TmaStoreState,TmaStoreOut,CHUNK,D,InputStages,OutputStages,NumThreads,HasStateIn,HasStateOut,StateFP32,IsVarlen,VSplitK2>(TmaLoadV,
+      TmaLoadBeta, TmaLoadWsKD, TmaLoadWsQD, TmaLoadWsKR, TmaLoadWsGT,
+      TmaLoadWsINV, TmaLoadWsMqk, TmaLoadState, TmaStoreState, TmaStoreOut,
+      cutlass::bfloat16_t *, int, int, int, const int64_t *, int) [with
+      TmaLoadV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadBeta=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<512>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_32>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 0>>> &,
+      const cute::Swizzle<0, 4, 3> &>>, cutlass::bfloat16_t>,
+      cute::Layout<cute::tuple<cute::_1, cute::tuple<cute::tuple<cute::_32,
+      cute::_1>>>, cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_32>>,
+      TmaLoadWsKD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsQD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsKR=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsGT=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<4096>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      1>, cute::ScaledBasis<cute::C<1>, 0>>, const
+      cute::Layout<cute::tuple<cute::_128, cute::_1>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<0,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::_128, cute::_1>>>,
+      cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_1, cute::_128>>,
+      TmaLoadWsINV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadWsMqk=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<16384>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<16384>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreOut=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>, CHUNK=16,
+      D=128, InputStages=3, OutputStages=2, NumThreads=128, HasStateIn=true,
+      HasStateOut=true, StateFP32=false, IsVarlen=false, VSplitK2=true]" at
+      line 201 of /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+                  instantiation of "void
+      launch_fwd<D,HasStateIn,HasStateOut,StateFP32,IsVarlen>(const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const void *, float, void *, cutlass::bfloat16_t
+      *, void *, int, int, int, int, const int64_t *, const float *,
+      const float *, float, cudaStream_t) [with D=128, HasStateIn=true,
+      HasStateOut=true, StateFP32=false, IsVarlen=false]" at line 240 of
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_kernel2.cuh(860): error:
+      no operator "=" matches these operands
+                  operand types are: cute::ArithmeticTuple<int, int, int>
+      = float
+                                g_final(seq_idx * H + head_idx, v_col, k_col)
+      =
+                                                                              ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function
+      "cute::ArithmeticTuple<T...>::operator=(cute::ArithmeticTuple<int, int,
+      int> &&) [with T=<int, int, int>]" does not match because argument #1
+      does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function "cute::ArithmeticTuple<T...>::operator=(const
+      cute::ArithmeticTuple<int, int, int> &) [with T=<int, int, int>]" does
+      not match because argument #1 does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+                detected during:
+                  instantiation of "void
+      _flash_kda_fwd_recurrence<TmaLoadV,TmaLoadBeta,TmaLoadWsKD,TmaLoadWsQD,TmaLoadWsKR,TmaLoadWsGT,TmaLoadWsINV,TmaLoadWsMqk,TmaLoadState,TmaStoreState,TmaStoreOut,CHUNK,D,InputStages,OutputStages,NumThreads,HasStateIn,HasStateOut,StateFP32,IsVarlen,VSplitK2>(TmaLoadV,
+      TmaLoadBeta, TmaLoadWsKD, TmaLoadWsQD, TmaLoadWsKR, TmaLoadWsGT,
+      TmaLoadWsINV, TmaLoadWsMqk, TmaLoadState, TmaStoreState, TmaStoreOut,
+      cutlass::bfloat16_t *, int, int, int, const int64_t *, int) [with
+      TmaLoadV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadBeta=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<512>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_32>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 0>>> &,
+      const cute::Swizzle<0, 4, 3> &>>, cutlass::bfloat16_t>,
+      cute::Layout<cute::tuple<cute::_1, cute::tuple<cute::tuple<cute::_32,
+      cute::_1>>>, cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_32>>,
+      TmaLoadWsKD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsQD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsKR=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsGT=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<4096>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      1>, cute::ScaledBasis<cute::C<1>, 0>>, const
+      cute::Layout<cute::tuple<cute::_128, cute::_1>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<0,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::_128, cute::_1>>>,
+      cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_1, cute::_128>>,
+      TmaLoadWsINV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadWsMqk=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<32768>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<1,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<32768>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<1,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreOut=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>, CHUNK=16,
+      D=128, InputStages=3, OutputStages=2, NumThreads=128, HasStateIn=true,
+      HasStateOut=true, StateFP32=true, IsVarlen=false, VSplitK2=true]" at
+      line 201 of /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+                  instantiation of "void
+      launch_fwd<D,HasStateIn,HasStateOut,StateFP32,IsVarlen>(const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const void *, float, void *, cutlass::bfloat16_t
+      *, void *, int, int, int, int, const int64_t *, const float *,
+      const float *, float, cudaStream_t) [with D=128, HasStateIn=true,
+      HasStateOut=true, StateFP32=true, IsVarlen=false]" at line 240 of
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_kernel2.cuh(818): error:
+      no operator "=" matches these operands
+                  operand types are: cute::ArithmeticTuple<int, int, int> =
+      cutlass::bfloat16_t
+                                g_final(seq_idx * H + head_idx, v_col, k_col)
+      =
+                                                                              ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function
+      "cute::ArithmeticTuple<T...>::operator=(cute::ArithmeticTuple<int, int,
+      int> &&) [with T=<int, int, int>]" does not match because argument #1
+      does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function "cute::ArithmeticTuple<T...>::operator=(const
+      cute::ArithmeticTuple<int, int, int> &) [with T=<int, int, int>]" does
+      not match because argument #1 does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+                detected during:
+                  instantiation of "void
+      _flash_kda_fwd_recurrence<TmaLoadV,TmaLoadBeta,TmaLoadWsKD,TmaLoadWsQD,TmaLoadWsKR,TmaLoadWsGT,TmaLoadWsINV,TmaLoadWsMqk,TmaLoadState,TmaStoreState,TmaStoreOut,CHUNK,D,InputStages,OutputStages,NumThreads,HasStateIn,HasStateOut,StateFP32,IsVarlen,VSplitK2>(TmaLoadV,
+      TmaLoadBeta, TmaLoadWsKD, TmaLoadWsQD, TmaLoadWsKR, TmaLoadWsGT,
+      TmaLoadWsINV, TmaLoadWsMqk, TmaLoadState, TmaStoreState, TmaStoreOut,
+      cutlass::bfloat16_t *, int, int, int, const int64_t *, int) [with
+      TmaLoadV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadBeta=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<512>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_32>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 0>>> &,
+      const cute::Swizzle<0, 4, 3> &>>, cutlass::bfloat16_t>,
+      cute::Layout<cute::tuple<cute::_1, cute::tuple<cute::tuple<cute::_32,
+      cute::_1>>>, cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_32>>,
+      TmaLoadWsKD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsQD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsKR=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsGT=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<4096>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      1>, cute::ScaledBasis<cute::C<1>, 0>>, const
+      cute::Layout<cute::tuple<cute::_128, cute::_1>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<0,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::_128, cute::_1>>>,
+      cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_1, cute::_128>>,
+      TmaLoadWsINV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadWsMqk=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<16384>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<16384>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreOut=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>, CHUNK=16,
+      D=128, InputStages=3, OutputStages=2, NumThreads=128, HasStateIn=false,
+      HasStateOut=true, StateFP32=false, IsVarlen=false, VSplitK2=true]" at
+      line 201 of /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+                  instantiation of "void
+      launch_fwd<D,HasStateIn,HasStateOut,StateFP32,IsVarlen>(const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const void *, float, void *, cutlass::bfloat16_t
+      *, void *, int, int, int, int, const int64_t *, const float *,
+      const float *, float, cudaStream_t) [with D=128, HasStateIn=false,
+      HasStateOut=true, StateFP32=false, IsVarlen=false]" at line 240 of
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_kernel2.cuh(860): error:
+      no operator "=" matches these operands
+                  operand types are: cute::ArithmeticTuple<int, int, int>
+      = float
+                                g_final(seq_idx * H + head_idx, v_col, k_col)
+      =
+                                                                              ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function
+      "cute::ArithmeticTuple<T...>::operator=(cute::ArithmeticTuple<int, int,
+      int> &&) [with T=<int, int, int>]" does not match because argument #1
+      does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cute/numeric/arithmetic_tuple.hpp(45):
+      note #3326-D: function "cute::ArithmeticTuple<T...>::operator=(const
+      cute::ArithmeticTuple<int, int, int> &) [with T=<int, int, int>]" does
+      not match because argument #1 does not match parameter
+        struct ArithmeticTuple : public tuple<T...> {
+               ^
+                detected during:
+                  instantiation of "void
+      _flash_kda_fwd_recurrence<TmaLoadV,TmaLoadBeta,TmaLoadWsKD,TmaLoadWsQD,TmaLoadWsKR,TmaLoadWsGT,TmaLoadWsINV,TmaLoadWsMqk,TmaLoadState,TmaStoreState,TmaStoreOut,CHUNK,D,InputStages,OutputStages,NumThreads,HasStateIn,HasStateOut,StateFP32,IsVarlen,VSplitK2>(TmaLoadV,
+      TmaLoadBeta, TmaLoadWsKD, TmaLoadWsQD, TmaLoadWsKR, TmaLoadWsGT,
+      TmaLoadWsINV, TmaLoadWsMqk, TmaLoadState, TmaStoreState, TmaStoreOut,
+      cutlass::bfloat16_t *, int, int, int, const int64_t *, int) [with
+      TmaLoadV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadBeta=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<512>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_32>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 0>>> &,
+      const cute::Swizzle<0, 4, 3> &>>, cutlass::bfloat16_t>,
+      cute::Layout<cute::tuple<cute::_1, cute::tuple<cute::tuple<cute::_32,
+      cute::_1>>>, cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_32>>,
+      TmaLoadWsKD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsQD=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsKR=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>,
+      TmaLoadWsGT=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<4096>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      1>, cute::ScaledBasis<cute::C<1>, 0>>, const
+      cute::Layout<cute::tuple<cute::_128, cute::_1>,
+      cute::tuple<cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<0,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::_128, cute::_1>>>,
+      cute::tuple<cute::C<0>, cute::tuple<cute::tuple<cute::_1,
+      cute::C<0>>>>>, cute::tuple<cute::_1, cute::_128>>,
+      TmaLoadWsINV=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadWsMqk=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_2>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::C<16>, cute::C<16>>>,
+      TmaLoadState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD,
+      cute::C<32768>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<1,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreState=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<32768>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>, const cute::Layout<cute::tuple<cute::_8, cute::_128,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>,
+      cute::ScaledBasis<cute::C<1>, 0>>> &, const cute::Swizzle<1,
+      4, 3> &>>, float>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::_8,
+      cute::_128>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_128, cute::_1>,
+      cute::C<1024>>>>>, cute::tuple<cute::_1, cute::C<128>, cute::C<128>>>,
+      TmaStoreOut=cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_STORE,
+      cute::C<2048>,
+      cute::AuxTmaParams<cute::tuple<cute::ScaledBasis<cute::C<1>,
+      2>, cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<int,
+      0>>, const cute::Layout<cute::tuple<cute::C<8>, cute::C<16>,
+      cute::C<1>>, cute::tuple<cute::ScaledBasis<cute::C<1>, 2>,
+      cute::ScaledBasis<cute::C<1>, 1>, cute::ScaledBasis<cute::C<1>,
+      0>>> &, const cute::Swizzle<0, 4, 3> &>>,
+      cutlass::bfloat16_t>, cute::Layout<cute::tuple<cute::_1,
+      cute::tuple<cute::tuple<cute::tuple<cute::C<8>,
+      cute::C<16>>, cute::_16>>>, cute::tuple<cute::C<0>,
+      cute::tuple<cute::tuple<cute::tuple<cute::_16, cute::_1>,
+      cute::_128>>>>, cute::tuple<cute::_1, cute::_16, cute::_128>>, CHUNK=16,
+      D=128, InputStages=3, OutputStages=2, NumThreads=128, HasStateIn=false,
+      HasStateOut=true, StateFP32=true, IsVarlen=false, VSplitK2=true]" at
+      line 201 of /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+                  instantiation of "void
+      launch_fwd<D,HasStateIn,HasStateOut,StateFP32,IsVarlen>(const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const
+      cutlass::bfloat16_t *, const void *, float, void *, cutlass::bfloat16_t
+      *, void *, int, int, int, int, const int64_t *, const float *,
+      const float *, float, cudaStream_t) [with D=128, HasStateIn=false,
+      HasStateOut=true, StateFP32=true, IsVarlen=false]" at line 240 of
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu
+
+      8 errors detected in the compilation of
+      "/tmp/flashkda-c1-12202/FlashKDA/csrc/smxx/fwd_launch.cu".
+      [2/2] c++ -MMD -MF /tmp/tmpw54u3mb5.build-temp/csrc/flash_kda.o.d
+      -pthread -fno-strict-overflow -Wsign-compare
+      -Wunreachable-code -DNDEBUG -g -O3 -Wall -O3 -fstack-protector
+      -fstack-clash-protection -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2
+      -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer -fPIC
+      -fPIC -I/tmp/flashkda-c1-12202/FlashKDA/cutlass/include
+      -I/tmp/flashkda-c1-12202/FlashKDA/cutlass/examples/common
+      -I/tmp/flashkda-c1-12202/FlashKDA/cutlass/tools/util/include
+      -I/tmp/flashkda-c1-12202/FlashKDA/csrc
+      -I/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/include
+      -I/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include
+      -I/usr/local/cuda/include -I/tmp/flashkda-c1-12202/venv/include
+      -I/home/lcpu/31233791/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/include/python3.12
+      -c -c /tmp/flashkda-c1-12202/FlashKDA/csrc/flash_kda.cpp -o
+      /tmp/tmpw54u3mb5.build-temp/csrc/flash_kda.o -O3 -Wno-psabi
+      -DFLASH_KDA_K2_VSPLIT=1 -DTORCH_API_INCLUDE_EXTENSION_H
+      -DTORCH_EXTENSION_NAME=flash_kda_C -std=c++20
+      In file included from
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cutlass/bfloat16.h:50,
+                       from /tmp/flashkda-c1-12202/FlashKDA/csrc/fwd.h:4,
+                       from
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/flash_kda.cpp:3:
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cutlass/platform/platform.h:658:21:
+      warning: ‘long4’ is deprecated: use long4_16a or long4_32a
+      [-Wdeprecated-declarations]
+        658 | struct alignment_of<long4> {
+            |                     ^~~~~
+      In file included from /usr/local/cuda/include/driver_types.h:61,
+                       from /usr/local/cuda/include/builtin_types.h:59,
+                       from /usr/local/cuda/include/cuda_runtime_api.h:150,
+                       from
+      /home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/include/c10/cuda/CUDAStream.h:4,
+                       from
+      /tmp/flashkda-c1-12202/FlashKDA/csrc/flash_kda.cpp:2:
+      /usr/local/cuda/include/vector_types.h:532:98: note: declared here
+        532 | typedef __device_builtin__ struct long4
+      __VECTOR_TYPE_DEPRECATED__("use long4_16a or long4_32a") long4;
+            |
+      ^~~~~
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cutlass/platform/platform.h:662:21:
+      warning: ‘ulong4’ is deprecated: use ulong4_16a or ulong4_32a
+      [-Wdeprecated-declarations]
+        662 | struct alignment_of<ulong4> {
+            |                     ^~~~~~
+      /usr/local/cuda/include/vector_types.h:533:101: note: declared here
+        533 | typedef __device_builtin__ struct ulong4
+      __VECTOR_TYPE_DEPRECATED__("use ulong4_16a or ulong4_32a") ulong4;
+            |
+      ^~~~~~
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cutlass/platform/platform.h:666:21:
+      warning: ‘longlong4’ is deprecated: use longlong4_16a or longlong4_32a
+      [-Wdeprecated-declarations]
+        666 | struct alignment_of<longlong4> {
+            |                     ^~~~~~~~~
+      /usr/local/cuda/include/vector_types.h:550:110: note: declared here
+        550 | typedef __device_builtin__ struct longlong4
+      __VECTOR_TYPE_DEPRECATED__("use longlong4_16a or longlong4_32a")
+      longlong4;
+            |
+      ^~~~~~~~~
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cutlass/platform/platform.h:670:21:
+      warning: ‘ulonglong4’ is deprecated: use ulonglong4_16a or
+      ulonglong4_32a [-Wdeprecated-declarations]
+        670 | struct alignment_of<ulonglong4> {
+            |                     ^~~~~~~~~~
+      /usr/local/cuda/include/vector_types.h:551:113: note: declared here
+        551 | typedef __device_builtin__ struct ulonglong4
+      __VECTOR_TYPE_DEPRECATED__("use ulonglong4_16a or ulonglong4_32a")
+      ulonglong4;
+            |
+      ^~~~~~~~~~
+      /tmp/flashkda-c1-12202/FlashKDA/cutlass/include/cutlass/platform/platform.h:674:21:
+      warning: ‘double4’ is deprecated: use double4_16a or double4_32a
+      [-Wdeprecated-declarations]
+        674 | struct alignment_of<double4> {
+            |                     ^~~~~~~
+      /usr/local/cuda/include/vector_types.h:561:104: note: declared here
+        561 | typedef __device_builtin__ struct double4
+      __VECTOR_TYPE_DEPRECATED__("use double4_16a or double4_32a") double4;
+            |
+      ^~~~~~~
+      ninja: build stopped: subcommand failed.
+
+      [stderr]
+      Traceback (most recent call last):
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py",
+      line 2893, in _run_ninja_build
+          subprocess.run(
+        File
+      "/home/lcpu/31233791/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/subprocess.py",
+      line 571, in run
+          raise CalledProcessError(retcode, process.args,
+      subprocess.CalledProcessError: Command '['ninja', '-v', '-j', '8']'
+      returned non-zero exit status 255.
+
+      The above exception was the direct cause of the following exception:
+
+      Traceback (most recent call last):
+        File "<string>", line 11, in <module>
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/build_meta.py",
+      line 474, in build_editable
+          return self._build_with_temp_dir(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/build_meta.py",
+      line 410, in _build_with_temp_dir
+          self.run_setup()
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/build_meta.py",
+      line 520, in run_setup
+          super().run_setup(setup_script=setup_script)
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/build_meta.py",
+      line 317, in run_setup
+          exec(code, locals())  # noqa: S102 # exec is intentional here
+          ^^^^^^^^^^^^^^^^^^^^
+        File "<string>", line 103, in <module>
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/__init__.py",
+      line 117, in setup
+          return distutils.core.setup(**attrs)  # type: ignore[return-value]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/_distutils/core.py",
+      line 168, in setup
+          return run_commands(dist)
+                 ^^^^^^^^^^^^^^^^^^
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/_distutils/core.py",
+      line 184, in run_commands
+          dist.run_commands()
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/_distutils/dist.py",
+      line 1028, in run_commands
+          self.run_command(cmd)
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/dist.py",
+      line 1106, in run_command
+          super().run_command(command)
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/_distutils/dist.py",
+      line 1047, in run_command
+          cmd_obj.run()
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/command/editable_wheel.py",
+      line 142, in run
+          self._create_wheel_file(bdist_wheel)
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/command/editable_wheel.py",
+      line 352, in _create_wheel_file
+          files, mapping = self._run_build_commands(dist_name, unpacked, lib,
+      tmp)
+      
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/command/editable_wheel.py",
+      line 275, in _run_build_commands
+          self._run_build_subcommands()
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/command/editable_wheel.py",
+      line 302, in _run_build_subcommands
+          self.run_command(name)
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/_distutils/cmd.py",
+      line 342, in run_command
+          self.distribution.run_command(command)
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/dist.py",
+      line 1106, in run_command
+          super().run_command(command)
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/_distutils/dist.py",
+      line 1047, in run_command
+          cmd_obj.run()
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/command/build_ext.py",
+      line 95, in run
+          _build_ext.run(self)
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/_distutils/command/build_ext.py",
+      line 382, in run
+          self.build_extensions()
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py",
+      line 1289, in build_extensions
+          super().build_extensions()
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/_distutils/command/build_ext.py",
+      line 498, in build_extensions
+          self._build_extensions_serial()
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/_distutils/command/build_ext.py",
+      line 524, in _build_extensions_serial
+          self.build_extension(ext)
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/command/build_ext.py",
+      line 260, in build_extension
+          _build_ext.build_extension(self, ext)
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/setuptools/_distutils/command/build_ext.py",
+      line 585, in build_extension
+          objects = self.compiler.compile(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py",
+      line 1027, in unix_wrap_ninja_compile
+          _write_ninja_file_and_compile_objects(
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py",
+      line 2475, in _write_ninja_file_and_compile_objects
+          _run_ninja_build(
+        File
+      "/home/lcpu/31233791/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py",
+      line 2910, in _run_ninja_build
+          raise RuntimeError(message) from e
+      RuntimeError: Error compiling objects for extension
+      An error occurred when building editable wheel for flash_kda.
+      See debugging tips in:
+      https://setuptools.pypa.io/en/latest/userguide/development_mode.html#debugging-tips
+
+
+hint: Build failures usually indicate a problem with the package or the build environment

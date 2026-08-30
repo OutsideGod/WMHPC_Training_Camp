@@ -229,4 +229,6 @@ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
         "Get workspace size in bytes",
         py::arg("T_total"), py::arg("H"),
         py::arg("N") = 1);
+    m.def("k2_vsplit_enabled", []() { return bool(FLASH_KDA_K2_VSPLIT); },
+          "Whether the experimental two-CTA K2 V-split was compiled in");
 }
