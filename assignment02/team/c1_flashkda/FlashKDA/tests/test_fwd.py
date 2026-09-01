@@ -68,31 +68,35 @@ def make_test_cases(H, D, T_shape, dtype, device):
     return cases
 
 
-def run_fla_gold_reference(q, k, v, g, beta, h0, A_log, dt_bias, scale, lower_bound, cu_seqlens=None):
-    """Run fused_recurrent_kda in fp64 as gold reference, and chunk_kda in bf16.
+def run_fla_references(q, k, v, g, beta, h0, A_log, dt_bias, scale, lower_bound, cu_seqlens=None):
+    """Run FLA fused-recurrent (fp32 compute) and chunked bf16 references.
+
+    The Triton fused-recurrent kernel converts values to fp32 internally, even
+    if its input tensors are float64; it is an independent semantic reference,
+    not an fp64 gold implementation.
     beta: [B, T, H] bf16 logits (pre-sigmoid).
     """
     from fla.ops.kda import chunk_kda, fused_recurrent_kda
 
     H = A_log.shape[0]
-    g_fp64 = g.clone().to(torch.float64) + dt_bias.to(torch.float64).unsqueeze(0).unsqueeze(0)
-    A_log_fp64 = A_log.to(torch.float64)
-    g_activated_fp64 = lower_bound * torch.sigmoid(torch.exp(A_log_fp64.view(1, 1, H, 1)) * g_fp64)
+    g_fp32 = g.clone().float() + dt_bias.float().unsqueeze(0).unsqueeze(0)
+    A_log_fp32 = A_log.float()
+    g_activated_fp32 = lower_bound * torch.sigmoid(torch.exp(A_log_fp32.view(1, 1, H, 1)) * g_fp32)
 
     # fused_recurrent_kda expects post-sigmoid beta
-    beta_activated_fp64 = torch.sigmoid(beta.clone().to(torch.float64))
+    beta_activated_fp32 = torch.sigmoid(beta.clone().float())
 
     fla_kwargs = dict(cu_seqlens=cu_seqlens) if cu_seqlens is not None else {}
 
     tri, tri_ht = fused_recurrent_kda(
-        q=q.clone().to(torch.float64),
-        k=k.clone().to(torch.float64),
-        v=v.clone().to(torch.float64),
-        g=g_activated_fp64,
-        beta=beta_activated_fp64,
+        q=q.clone().float(),
+        k=k.clone().float(),
+        v=v.clone().float(),
+        g=g_activated_fp32,
+        beta=beta_activated_fp32,
         A_log=None, dt_bias=None,
         scale=scale,
-        initial_state=h0.clone().to(torch.float64),
+        initial_state=h0.clone().float(),
         output_final_state=True,
         use_qk_l2norm_in_kernel=True,
         use_gate_in_kernel=False,
@@ -337,7 +341,7 @@ def test_fwd_vs_fla():
         print(f"\n{'='*80}")
         print(f"Case: {case_name}")
 
-        tri, tri_ht, chunk_o, chunk_ht = run_fla_gold_reference(
+        tri, tri_ht, chunk_o, chunk_ht = run_fla_references(
             q, k, v, g, beta, h0, A_log, dt_bias, scale, LOWER_BOUND)
         out_fk, final_state_fk = run_flash_kda_batched(
             q, k, v, g, beta, h0, A_log, dt_bias, scale, LOWER_BOUND)
@@ -398,7 +402,7 @@ def test_fwd_varlen_vs_fla():
         print(f"\n{'='*80}")
         print(f"Case: {case_name}")
 
-        tri, tri_ht, chunk_o, chunk_ht = run_fla_gold_reference(
+        tri, tri_ht, chunk_o, chunk_ht = run_fla_references(
             q, k, v, g, beta, h0, A_log, dt_bias, scale, LOWER_BOUND, cu_seqlens=cu_seqlens)
         out_fk, final_state_fk = run_flash_kda_batched(
             q, k, v, g, beta, h0, A_log, dt_bias, scale, LOWER_BOUND, cu_seqlens=cu_seqlens)

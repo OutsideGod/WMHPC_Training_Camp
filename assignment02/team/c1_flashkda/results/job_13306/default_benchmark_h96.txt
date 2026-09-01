@@ -1,0 +1,14 @@
+k2_vsplit_enabled=False
+benchmark_mode=inference FLA_FLASH_KDA=0 safe_gate=True
+case=fixed seq_lens=[8192] H=96 T=8192 warmup=30 samples=1000
+  flash_kda fp32 state               mean=1.7705 ms min=1.7647 ms max=1.9406 ms
+  flash_kda no state                 mean=1.6634 ms min=1.6595 ms max=1.8153 ms
+  FLA Triton chunk_kda safe_gate     mean=3.0412 ms min=3.0285 ms max=3.4732 ms
+case=mixed seq_lens=[1300, 547, 2048, 963, 271, 3063] H=96 T=8192 warmup=30 samples=1000
+  flash_kda fp32 state               mean=1.5255 ms min=1.4209 ms max=1.6835 ms
+  flash_kda no state                 mean=1.4351 ms min=1.3587 ms max=1.5432 ms
+  FLA Triton chunk_kda safe_gate     mean=3.1600 ms min=3.1440 ms max=3.5341 ms
+case=8x1024 seq_lens=[1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024] H=96 T=8192 warmup=30 samples=1000
+  flash_kda fp32 state               mean=1.2286 ms min=1.2260 ms max=1.2505 ms
+  flash_kda no state                 mean=1.1557 ms min=1.1515 ms max=1.1776 ms
+  FLA Triton chunk_kda safe_gate     mean=3.0497 ms min=3.0376 ms max=3.1527 ms

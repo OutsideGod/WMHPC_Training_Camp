@@ -1,0 +1,16 @@
+inner_iters=1 launches=200 finite=true max_diff=0
+mma.sync exact m16n16k16 :    4.117 us  useful=   0.002 TFLOP/s
+tcgen05 padded m64n16k16:    6.156 us  physical=   0.005 TFLOP/s useful=   0.001 TFLOP/s
+useful speedup tcgen05/mma.sync: 0.669x; utilization=25%
+inner_iters=8 launches=200 finite=true max_diff=0
+mma.sync exact m16n16k16 :    4.160 us  useful=   0.016 TFLOP/s
+tcgen05 padded m64n16k16:    6.155 us  physical=   0.043 TFLOP/s useful=   0.011 TFLOP/s
+useful speedup tcgen05/mma.sync: 0.676x; utilization=25%
+inner_iters=64 launches=200 finite=true max_diff=0
+mma.sync exact m16n16k16 :    6.164 us  useful=   0.085 TFLOP/s
+tcgen05 padded m64n16k16:    6.167 us  physical=   0.340 TFLOP/s useful=   0.085 TFLOP/s
+useful speedup tcgen05/mma.sync: 0.999x; utilization=25%
+inner_iters=4096 launches=200 finite=true max_diff=0
+mma.sync exact m16n16k16 :   81.904 us  useful=   0.410 TFLOP/s
+tcgen05 padded m64n16k16:   92.130 us  physical=   1.457 TFLOP/s useful=   0.364 TFLOP/s
+useful speedup tcgen05/mma.sync: 0.889x; utilization=25%

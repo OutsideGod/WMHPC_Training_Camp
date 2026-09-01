@@ -1,0 +1,11 @@
+k2_vsplit_enabled=True
+benchmark_mode=inference FLA_FLASH_KDA=0 safe_gate=True
+case=fixed seq_lens=[8192] H=64 T=8192 warmup=30 samples=1000
+  flash_kda fp32 state               mean=4.2019 ms min=4.1957 ms max=4.4112 ms
+  flash_kda no state                 mean=4.0268 ms min=4.0157 ms max=4.2289 ms
+case=mixed seq_lens=[1300, 547, 2048, 963, 271, 3063] H=64 T=8192 warmup=30 samples=1000
+  flash_kda fp32 state               mean=3.8249 ms min=3.7349 ms max=4.0459 ms
+  flash_kda no state                 mean=3.1216 ms min=2.9793 ms max=3.7219 ms
+case=8x1024 seq_lens=[1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024] H=64 T=8192 warmup=30 samples=1000
+  flash_kda fp32 state               mean=3.3176 ms min=3.3091 ms max=3.5107 ms
+  flash_kda no state                 mean=2.2648 ms min=2.2593 ms max=2.4345 ms

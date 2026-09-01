@@ -1,0 +1,9 @@
+Using Python 3.12.13 environment at: /tmp/flashkda-c1-13306/venv
+Resolved 1 package in 1.39s
+   Building flash-kda @ file:///tmp/flashkda-c1-13306/FlashKDA-vsplit
+      Built flash-kda @ file:///tmp/flashkda-c1-13306/FlashKDA-vsplit
+Prepared 1 package in 34.01s
+Uninstalled 1 package in 0.32ms
+Installed 1 package in 0.68ms
+ - flash-kda==0.0.1+1ce47ea (from file:///tmp/flashkda-c1-13306/FlashKDA-default)
+ + flash-kda==0.0.1+1ce47ea (from file:///tmp/flashkda-c1-13306/FlashKDA-vsplit)

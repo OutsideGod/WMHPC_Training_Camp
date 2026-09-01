@@ -3,8 +3,8 @@
 
 #include <cutlass/bfloat16.h>
 
-// Experimental C1 challenge path.  The default build remains bit-for-bit on
-// the original one-CTA-per-(sequence, head) K2 launch.  Set the compile-time
+// Experimental C1 challenge path.  With the flag disabled, the original
+// one-CTA-per-(sequence, head) K2 dataflow is selected.  Set the compile-time
 // flag to 1 to launch two independent CTAs, each owning 64 value columns.
 #ifndef FLASH_KDA_K2_VSPLIT
 #define FLASH_KDA_K2_VSPLIT 0

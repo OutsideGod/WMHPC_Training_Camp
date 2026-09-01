@@ -1,0 +1,16 @@
+inner_iters=1 launches=200 finite=true max_diff=0
+mma.sync m128n128k16 :   10.253 us     0.051 TFLOP/s
+tcgen05 m128n128k16:   22.532 us     0.023 TFLOP/s
+speedup tcgen05/mma.sync: 0.455x
+inner_iters=8 launches=200 finite=true max_diff=0
+mma.sync m128n128k16 :   12.311 us     0.341 TFLOP/s
+tcgen05 m128n128k16:   22.552 us     0.186 TFLOP/s
+speedup tcgen05/mma.sync: 0.546x
+inner_iters=64 launches=200 finite=true max_diff=0
+mma.sync m128n128k16 :   28.818 us     1.164 TFLOP/s
+tcgen05 m128n128k16:   26.632 us     1.260 TFLOP/s
+speedup tcgen05/mma.sync: 1.082x
+inner_iters=256 launches=200 finite=true max_diff=0
+mma.sync m128n128k16 :   87.017 us     1.542 TFLOP/s
+tcgen05 m128n128k16:   36.900 us     3.637 TFLOP/s
+speedup tcgen05/mma.sync: 2.358x

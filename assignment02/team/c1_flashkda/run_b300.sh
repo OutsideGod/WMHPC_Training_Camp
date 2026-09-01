@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# One-command B300 data collection for C1.  The vendored snapshot intentionally
+# One-command baseline/NCU data collection for C1. The vendored snapshot intentionally
 # omits CUTLASS; point FLASH_KDA_ROOT at the complete pinned clone when needed:
 #   FLASH_KDA_ROOT=/path/to/FlashKDA bash run_b300.sh
 
@@ -31,6 +31,7 @@ fi
 
 STAMP=$(date -u +%Y%m%dT%H%M%SZ)
 RESULTS="$SCRIPT_DIR/results/$STAMP"
+MICRO_DIR=$(mktemp -d /tmp/flashkda-c1-micro.XXXXXX)
 mkdir -p "$RESULTS"
 
 "$PYTHON" - <<'PY'
@@ -48,35 +49,52 @@ PY
         --warmup 30 --iters 200 --repeats 5 | tee "$RESULTS/benchmark_h96.txt"
     "$PYTHON" benchmarks/bench_fwd.py --H 64 --D 128 \
         --warmup 30 --iters 200 --repeats 5 | tee "$RESULTS/benchmark_h64.txt"
+    "$PYTHON" benchmarks/bench_fwd.py --H 12 --D 128 \
+        --warmup 30 --iters 200 --repeats 5 | tee "$RESULTS/benchmark_h12.txt"
     "$PYTHON" -m pytest -q \
         tests/test_fwd.py::test_fwd tests/test_fwd.py::test_fwd_varlen \
         | tee "$RESULTS/correctness.txt"
+
+    PYTHONPATH="$FLASH_KDA_ROOT/tests:$SCRIPT_DIR${PYTHONPATH:+:$PYTHONPATH}" \
+        "$PYTHON" "$SCRIPT_DIR/experiments/validate_kernel_matched.py" \
+        --flash-root "$FLASH_KDA_ROOT" | tee "$RESULTS/exact_matrix.txt"
+    FLA_FLASH_KDA=0 PYTHONPATH="$FLASH_KDA_ROOT/tests:$SCRIPT_DIR${PYTHONPATH:+:$PYTHONPATH}" \
+        "$PYTHON" "$SCRIPT_DIR/experiments/validate_fla_refs.py" \
+        | tee "$RESULTS/fla_refs.txt"
+    for HEADS in 96 64 12; do
+        FLA_FLASH_KDA=0 PYTHONPATH="$SCRIPT_DIR${PYTHONPATH:+:$PYTHONPATH}" \
+            "$PYTHON" "$SCRIPT_DIR/experiments/bench_c1.py" --heads "$HEADS" \
+            --warmup 30 --iters 200 --repeats 5 \
+            | tee "$RESULTS/fair_benchmark_h${HEADS}.txt"
+    done
 
     EXTENSION=$("$PYTHON" -c 'import torch, flash_kda_C; print(flash_kda_C.__file__)')
     "$SCRIPT_DIR/experiments/extract_sass.sh" "$EXTENSION" "$RESULTS/flash_kda.sass" \
         | tee "$RESULTS/sass_matrix_opcode_count.txt"
     cuobjdump --dump-ptx "$EXTENSION" >"$RESULTS/flash_kda.ptx" || true
 
-    ncu --set full --kernel-name-base function \
-        -k 'regex:_flash_kda_fwd_(prepare|recurrence)' \
-        --clock-control none --import-source yes --source-folders . \
-        --export "$RESULTS/fixed_h96" \
-        "$PYTHON" benchmarks/bench_fwd.py --mode fixed --H 96 --D 128 \
-            --warmup 0 --iters 1 --repeats 1
-    ncu --import "$RESULTS/fixed_h96.ncu-rep" --page raw --csv \
-        >"$RESULTS/fixed_h96_metrics.csv"
+    for CASE in fixed varlen_8x1024; do
+        ncu --set full --kernel-name-base function \
+            -k 'regex:_flash_kda_fwd_(prepare|recurrence)' \
+            --clock-control none --import-source yes --source-folders . \
+            --export "$RESULTS/${CASE}_h96" \
+            "$PYTHON" "$SCRIPT_DIR/experiments/profile_flash_kda.py" \
+                --case "$CASE" --heads 96
+        ncu --import "$RESULTS/${CASE}_h96.ncu-rep" --page raw --csv \
+            >"$RESULTS/${CASE}_h96_metrics.csv"
+    done
 )
 
 nvcc -O3 -std=c++17 -gencode arch=compute_103a,code=sm_103a \
-    -o "$RESULTS/mma16_vs_tcgen05" "$SCRIPT_DIR/experiments/mma16_vs_tcgen05.cu"
+    -o "$MICRO_DIR/mma16_vs_tcgen05" "$SCRIPT_DIR/experiments/mma16_vs_tcgen05.cu"
 for INNER in 1 8 64 4096; do
-    "$RESULTS/mma16_vs_tcgen05" "$INNER" 200
+    "$MICRO_DIR/mma16_vs_tcgen05" "$INNER" 200
 done | tee "$RESULTS/mma16_vs_tcgen05.txt"
 
 nvcc -O3 -std=c++17 -gencode arch=compute_103a,code=sm_103a \
-    -o "$RESULTS/state_delta_tcgen05" "$SCRIPT_DIR/experiments/state_delta_tcgen05.cu"
+    -o "$MICRO_DIR/state_delta_tcgen05" "$SCRIPT_DIR/experiments/state_delta_tcgen05.cu"
 for INNER in 1 8 64 256; do
-    "$RESULTS/state_delta_tcgen05" "$INNER" 200
+    "$MICRO_DIR/state_delta_tcgen05" "$INNER" 200
 done | tee "$RESULTS/state_delta_tcgen05.txt"
 
 "$PYTHON" "$SCRIPT_DIR/experiments/chunk_model.py" \

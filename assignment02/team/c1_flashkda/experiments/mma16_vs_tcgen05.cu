@@ -104,8 +104,10 @@ __global__ void mma_sync_16(const __nv_bfloat16* a,
 __global__ void tcgen05_padded_64(const __nv_bfloat16* a,
                                   const __nv_bfloat16* b_col_major,
                                   float* out, int inner_iters) {
-    // K-major matrices with 128-B swizzle.  Only A rows [0,16) and K [0,16)
-    // are useful; padding is explicitly zeroed.
+    // K-major matrices with 128-B swizzle.  Only A rows [0,16) are useful;
+    // the remaining physical rows are zero. PAD_K is descriptor stride, so
+    // columns [K,PAD_K) are not touched by an m64n16k16 instruction and do
+    // not belong in the timed staging cost.
     __shared__ __align__(1024) uint8_t sa[TCGEN_M * PAD_K * 2];
     __shared__ __align__(1024) uint8_t sb[N * PAD_K * 2];
     __shared__ __align__(8) uint64_t mbar;
@@ -133,18 +135,17 @@ __global__ void tcgen05_padded_64(const __nv_bfloat16* a,
             "tcgen05.relinquish_alloc_permit.cta_group::1.sync.aligned;");
     }
 
-    for (int i = tid; i < TCGEN_M * PAD_K; i += blockDim.x) {
-        int m = i / PAD_K;
-        int k = i % PAD_K;
-        __nv_bfloat16 x = __float2bfloat16(0.0f);
-        if (m < LOGICAL_M && k < K) x = a[m * K + k];
+    for (int i = tid; i < TCGEN_M * K; i += blockDim.x) {
+        int m = i / K;
+        int k = i % K;
+        __nv_bfloat16 x = m < LOGICAL_M ? a[m * K + k]
+                                         : __float2bfloat16(0.0f);
         *reinterpret_cast<__nv_bfloat16*>(&sa[swz128(m, k * 2)]) = x;
     }
-    for (int i = tid; i < N * PAD_K; i += blockDim.x) {
-        int n = i / PAD_K;
-        int k = i % PAD_K;
-        __nv_bfloat16 x = __float2bfloat16(0.0f);
-        if (k < K) x = b_col_major[n * K + k];
+    for (int i = tid; i < N * K; i += blockDim.x) {
+        int n = i / K;
+        int k = i % K;
+        __nv_bfloat16 x = b_col_major[n * K + k];
         *reinterpret_cast<__nv_bfloat16*>(&sb[swz128(n, k * 2)]) = x;
     }
     asm volatile("fence.proxy.async.shared::cta;");

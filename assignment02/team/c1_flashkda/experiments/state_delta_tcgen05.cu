@@ -128,17 +128,18 @@ __global__ void tcgen05_state_delta(const __nv_bfloat16* a,
             "tcgen05.relinquish_alloc_permit.cta_group::1.sync.aligned;");
     }
 
-    for (int i = tid; i < M * PAD_K; i += blockDim.x) {
-        int m = i / PAD_K;
-        int k = i % PAD_K;
-        __nv_bfloat16 x = k < K ? a[m * K + k] : __float2bfloat16(0.0f);
+    // PAD_K is the swizzled descriptor stride.  The instruction consumes K=16,
+    // so staging the unused stride padding would only bias setup cost.
+    for (int i = tid; i < M * K; i += blockDim.x) {
+        int m = i / K;
+        int k = i % K;
+        __nv_bfloat16 x = a[m * K + k];
         *reinterpret_cast<__nv_bfloat16*>(&sa[swz128(m, k * 2)]) = x;
     }
-    for (int i = tid; i < N * PAD_K; i += blockDim.x) {
-        int n = i / PAD_K;
-        int k = i % PAD_K;
-        __nv_bfloat16 x =
-            k < K ? b_col_major[n * K + k] : __float2bfloat16(0.0f);
+    for (int i = tid; i < N * K; i += blockDim.x) {
+        int n = i / K;
+        int k = i % K;
+        __nv_bfloat16 x = b_col_major[n * K + k];
         *reinterpret_cast<__nv_bfloat16*>(&sb[swz128(n, k * 2)]) = x;
     }
     asm volatile("fence.proxy.async.shared::cta;");

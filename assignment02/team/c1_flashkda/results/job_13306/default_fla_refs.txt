@@ -1,0 +1,8 @@
+FLA_FLASH_KDA=0
+chunk_reference=fla_kda_ref/chunk.py safe_gate=True
+naive_reference=fla_kda_ref/naive.py pure PyTorch recurrence
+PASS reference=naive_fixed output_rel_rms=4.439923e-03 state_rel_rms=5.048876e-03 threshold=1.000e-02
+PASS reference=naive_varlen output_rel_rms=4.681460e-03 state_rel_rms=5.014696e-03 threshold=1.000e-02
+PASS reference=chunk_fixed output_rel_rms=5.812347e-03 state_rel_rms=5.227239e-03 threshold=1.000e-02
+PASS reference=chunk_varlen output_rel_rms=5.557526e-03 state_rel_rms=4.970047e-03 threshold=1.000e-02
+SUMMARY independent_reference_cases=4 status=PASS

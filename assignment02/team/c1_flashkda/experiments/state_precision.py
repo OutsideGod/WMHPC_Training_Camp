@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import csv
 import math
+import statistics
 import sys
 
 import torch
@@ -63,6 +64,7 @@ def run_case(
         probe_bf16 = q @ bf16.float()
 
     return {
+        "seed": seed,
         "tokens": chunks * chunk,
         "chunks": chunks,
         "gate/token": gate_per_token,
@@ -79,24 +81,55 @@ def main() -> None:
     p.add_argument("--d", type=int, default=128)
     p.add_argument("--chunk", type=int, default=16)
     p.add_argument("--seed", type=int, default=20260829)
+    p.add_argument("--seeds", type=int, default=3)
     p.add_argument("--output", help="optional CSV path; stdout when omitted")
     args = p.parse_args()
     torch.set_num_threads(1)
 
     # weak decay is the accumulation-heavy stress case; stronger decay limits
     # the time horizon over which bf16 rounding can accumulate.
-    cases = []
+    if args.seeds < 2:
+        p.error("--seeds must be at least 2 so the output includes uncertainty")
+
+    raw_cases = []
     for chunks in (64, 128, 512):
         for gate in (-1e-4, -2e-2, -5e-1):
-            cases.append(
-                run_case(
-                    d=args.d,
-                    chunks=chunks,
-                    chunk=args.chunk,
-                    gate_per_token=gate,
-                    seed=args.seed + chunks + round(abs(gate) * 10000),
-                )
+            # Reuse each seed across sequence lengths and gate values.  Thus a
+            # longer case extends the same random stream and gate sweeps see
+            # the same updates/probes instead of a confounded random problem.
+            raw_cases.append(
+                [
+                    run_case(
+                        d=args.d,
+                        chunks=chunks,
+                        chunk=args.chunk,
+                        gate_per_token=gate,
+                        seed=args.seed + seed_idx,
+                    )
+                    for seed_idx in range(args.seeds)
+                ]
             )
+
+    metric_names = [
+        "final_fp32_rel_rms",
+        "final_bf16_rel_rms",
+        "probe_fp32_rel_rms",
+        "probe_bf16_rel_rms",
+        "bf16_max_abs",
+    ]
+    cases = []
+    for samples in raw_cases:
+        row = {
+            "tokens": samples[0]["tokens"],
+            "chunks": samples[0]["chunks"],
+            "gate/token": samples[0]["gate/token"],
+            "seeds": len(samples),
+        }
+        for name in metric_names:
+            values = [float(sample[name]) for sample in samples]
+            row[name + "_mean"] = statistics.fmean(values)
+            row[name + "_std"] = statistics.stdev(values)
+        cases.append(row)
 
     stream = open(args.output, "w", newline="") if args.output else sys.stdout
     try:

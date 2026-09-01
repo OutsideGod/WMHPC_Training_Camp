@@ -1,0 +1,23 @@
+k2_vsplit_enabled=False
+reference=torch_ref (kernel-matched; exact equality)
+PASS exact case=tail_T1_H1 state=bf16_in_out
+PASS exact case=tail_T15_H4 state=bf16_in_out
+PASS exact case=boundary_T16_H4 state=bf16_in_out
+PASS exact case=tail_T17_H12 state=bf16_in_out
+PASS exact case=tail_T33_H64 state=bf16_in_out
+PASS exact case=small_H96 state=bf16_in_out
+PASS exact case=batched_B2_T17_H12 state=bf16_in_out
+PASS exact case=varlen_edges_H12 state=bf16_in_out
+PASS exact case=tail_T17_H12 state=fp32_in_out
+PASS exact case=tail_T17_H12 state=bf16_in_only
+PASS exact case=tail_T17_H12 state=fp32_in_only
+PASS exact case=tail_T17_H12 state=bf16_out_only
+PASS exact case=tail_T17_H12 state=fp32_out_only
+PASS exact case=tail_T17_H12 state=no_state
+PASS exact case=varlen_edges_H12 state=fp32_in_out
+PASS exact case=varlen_edges_H12 state=bf16_in_only
+PASS exact case=varlen_edges_H12 state=fp32_in_only
+PASS exact case=varlen_edges_H12 state=bf16_out_only
+PASS exact case=varlen_edges_H12 state=fp32_out_only
+PASS exact case=varlen_edges_H12 state=no_state
+SUMMARY exact_cases=20 status=PASS
