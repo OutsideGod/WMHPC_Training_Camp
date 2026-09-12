@@ -46,7 +46,7 @@ __device__ inline void mbar_wait(uint32_t mbar, uint32_t phase) {
 }
 
 __global__ void tcgen05_tile(const __nv_bfloat16* gA, const __nv_bfloat16* gB,
-                             float* gD, int rounds) {
+                             float* gD, int rounds, bool reproduce_bug) {
     __shared__ __align__(1024) uint8_t sA[M * K * 2];   // 16 KB,swizzled
     __shared__ __align__(1024) uint8_t sB[N * K * 2];   // 8 KB,swizzled
     __shared__ __align__(8) uint64_t mbar;
@@ -114,7 +114,7 @@ __global__ void tcgen05_tile(const __nv_bfloat16* gA, const __nv_bfloat16* gB,
                 ".shared::cluster.b64 [%0];" ::"r"(mbar_u32)
                 : "memory");
         }
-        mbar_wait(mbar_u32, 0);
+        mbar_wait(mbar_u32, reproduce_bug ? 0 : (round & 1));
         asm volatile("tcgen05.fence::after_thread_sync;");
         for (int c = 0; c < N; c += 8) {
             uint32_t src = taddr + ((uint32_t)(warp * 32) << 16) + c;
@@ -149,6 +149,7 @@ __global__ void tcgen05_tile(const __nv_bfloat16* gA, const __nv_bfloat16* gB,
 
 int main(int argc, char** argv) {
     unsigned seed = argc > 1 ? (unsigned)atoi(argv[1]) : 42;
+    bool reproduce_bug = argc > 3 && atoi(argv[3]) != 0;
     std::mt19937 rng(seed);
     std::uniform_int_distribution<int> dist(-3, 3);
     std::vector<__nv_bfloat16> hA(M * K), hB(N * K);
@@ -169,7 +170,7 @@ int main(int argc, char** argv) {
     CUDA_CHECK(cudaMemcpy(dA, hA.data(), M * K * 2, cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(dB, hB.data(), N * K * 2, cudaMemcpyHostToDevice));
     int rounds = argc > 2 ? atoi(argv[2]) : 4;
-    tcgen05_tile<<<1, 128>>>(dA, dB, dD, rounds);
+    tcgen05_tile<<<1, 128>>>(dA, dB, dD, rounds, reproduce_bug);
     CUDA_CHECK_KERNEL();
     std::vector<float> got(M * N);
     CUDA_CHECK(cudaMemcpy(got.data(), dD, M * N * 4, cudaMemcpyDeviceToHost));
@@ -181,6 +182,8 @@ int main(int argc, char** argv) {
                        i % N, got[i], ref[i]);
             bad++;
         }
+    fprintf(stderr, "mbar_phase=%s rounds=%d\n",
+            reproduce_bug ? "always-0 (bug)" : "alternating (fixed)", rounds);
     printf(bad ? "FAIL seed=%u: %ld / %d\n" : "PASS seed=%u\n", seed,
            bad ? bad : (long)seed, M * N);
     return bad != 0;

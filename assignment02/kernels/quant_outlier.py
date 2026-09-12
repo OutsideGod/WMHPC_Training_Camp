@@ -26,7 +26,11 @@ def quant_dequant_per_tensor(x: torch.Tensor) -> torch.Tensor:
     TODO: 实现。步骤:算 scale = amax / 448;除 scale 后 cast 到
     torch.float8_e4m3fn;cast 回 float 再乘 scale。
     """
-    raise NotImplementedError
+    amax = x.abs().max()
+    if amax == 0:
+        return x.clone()
+    scale = amax / E4M3_MAX
+    return (x / scale).to(torch.float8_e4m3fn).float() * scale
 
 
 def rel_err_at(x: torch.Tensor, y: torch.Tensor, value: float) -> float:
@@ -34,7 +38,8 @@ def rel_err_at(x: torch.Tensor, y: torch.Tensor, value: float) -> float:
 
     TODO: 实现(表格的每一格都从这里来)。
     """
-    raise NotImplementedError
+    i = (x - value).abs().argmin()
+    return ((y[i] - x[i]).abs() / x[i].abs().clamp_min(1e-30)).item()
 
 
 def main() -> None:
@@ -43,10 +48,35 @@ def main() -> None:
     print("含 outlier:")
     for v in (0.5, 0.1, 0.01, 0.005, 3000.0):
         print(f"  x≈{v:<8} rel_err={rel_err_at(x, y, v):.3e}")
+
     # (a) 去掉 outlier 重新量化,对比 0.5 处的误差
     # (b) 找出被量化成 0 的阈值,写出它与 scale 的关系式
     # (c) 换 1x128 的 per-block scale,对比含/不含 outlier 的 block
     # 这三问自己补代码,结果写进报告。
+    x_no = x[:-1]
+    y_no = quant_dequant_per_tensor(x_no)
+    err_with = rel_err_at(x, y, 0.5)
+    err_without = rel_err_at(x_no, y_no, 0.5)
+    print(f"去掉 outlier:x≈0.5 rel_err={err_without:.3e}, "
+          f"原误差是其 {err_with / err_without:.1f} 倍")
+
+    scale = x.abs().max() / E4M3_MAX
+    zero_threshold = scale * (2.0 ** -10)
+    print(f"归零阈值=scale/1024={zero_threshold.item():.6e}, "
+          f"scale={scale.item():.6e}")
+
+    normal_block = x[:128].clone()
+    outlier_block = normal_block.clone()
+    outlier_block[-1] = 3000.0
+    normal_y = quant_dequant_per_tensor(normal_block)
+    outlier_y = quant_dequant_per_tensor(outlier_block)
+    print("1x128 per-block:")
+    print(f"  无 outlier block scale="
+          f"{(normal_block.abs().max() / E4M3_MAX).item():.6e}, "
+          f"x≈0.5 rel_err={rel_err_at(normal_block, normal_y, 0.5):.3e}")
+    print(f"  有 outlier block scale="
+          f"{(outlier_block.abs().max() / E4M3_MAX).item():.6e}, "
+          f"x≈0.5 rel_err={rel_err_at(outlier_block, outlier_y, 0.5):.3e}")
 
 
 if __name__ == "__main__":

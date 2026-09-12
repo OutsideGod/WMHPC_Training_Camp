@@ -103,8 +103,158 @@ __global__ void gemm_pipeline(const __nv_bfloat16* gA, const __nv_bfloat16* gB,
     //       → mma(与 4.2 相同,累加位口径不变)→ commit 到
     //       empty[it%NSTAGE]
     // (4) drain:等最后一轮 mma 的 empty 到达,再进 epilogue
-    (void)gA; (void)gB; (void)gD; (void)M; (void)N; (void)K;
-    (void)tmapA; (void)tmapB; (void)smem;
+    constexpr int STAGE_BYTES = (BM + BN) * BK * 2;
+    __shared__ __align__(8) uint64_t full[NSTAGE], empty[NSTAGE];
+    __shared__ uint32_t s_taddr[1];
+    int tid = threadIdx.x, warp = tid >> 5, lane = tid & 31;
+
+    if (warp == 0) {
+        if (lane == 0) {
+            for (int stage = 0; stage < NSTAGE; ++stage) {
+                uint32_t f =
+                    (uint32_t)__cvta_generic_to_shared(&full[stage]);
+                uint32_t e =
+                    (uint32_t)__cvta_generic_to_shared(&empty[stage]);
+                asm volatile("mbarrier.init.shared::cta.b64 [%0], %1;" ::
+                                 "r"(f), "r"(1));
+                asm volatile("mbarrier.init.shared::cta.b64 [%0], %1;" ::
+                                 "r"(e), "r"(1));
+            }
+            asm volatile("fence.mbarrier_init.release.cluster;");
+        }
+        uint32_t dst = (uint32_t)__cvta_generic_to_shared(s_taddr);
+        asm volatile(
+            "tcgen05.alloc.cta_group::1.sync.aligned.shared::cta.b32 [%0], %1;" ::
+                "r"(dst), "r"(BN));
+        asm volatile(
+            "tcgen05.relinquish_alloc_permit.cta_group::1.sync.aligned;");
+    }
+    __syncthreads();
+
+    int tileM = blockIdx.x * BM;
+    int tileN = blockIdx.y * BN;
+    int iters = K / BK;
+    uint32_t taddr = s_taddr[0];
+    uint32_t elected;
+    asm volatile(
+        "{\n.reg .pred P;\nelect.sync _|P, 0xFFFFFFFF;\nselp.b32 %0, 1, 0, P;\n}"
+        : "=r"(elected));
+
+    auto issue_tma = [&](int it) {
+        int stage = it % NSTAGE;
+        uint8_t* stage_base = smem + stage * STAGE_BYTES;
+        uint8_t* sA = stage_base;
+        uint8_t* sB = stage_base + BM * BK * 2;
+        uint32_t full_addr =
+            (uint32_t)__cvta_generic_to_shared(&full[stage]);
+        [[maybe_unused]] uint64_t state;
+        asm volatile(
+            "mbarrier.arrive.expect_tx.release.cta.shared::cta.b64 "
+            "%0, [%1], %2;"
+            : "=l"(state)
+            : "r"(full_addr), "r"(STAGE_BYTES)
+            : "memory");
+        uint32_t dstA = (uint32_t)__cvta_generic_to_shared(sA);
+        uint32_t dstB = (uint32_t)__cvta_generic_to_shared(sB);
+        int coordK = it * BK;
+        asm volatile(
+            "cp.async.bulk.tensor.2d.shared::cluster.global.tile."
+            "mbarrier::complete_tx::bytes [%0], [%1, {%2, %3}], [%4];"
+            :: "r"(dstA), "l"(&tmapA), "r"(coordK), "r"(tileM),
+               "r"(full_addr)
+            : "memory");
+        asm volatile(
+            "cp.async.bulk.tensor.2d.shared::cluster.global.tile."
+            "mbarrier::complete_tx::bytes [%0], [%1, {%2, %3}], [%4];"
+            :: "r"(dstB), "l"(&tmapB), "r"(coordK), "r"(tileN),
+               "r"(full_addr)
+            : "memory");
+    };
+
+    if (warp == 0 && elected) {
+        for (int it = 0; it < min(NSTAGE, iters); ++it) issue_tma(it);
+
+        for (int it = 0; it < iters; ++it) {
+            int stage = it % NSTAGE;
+            int generation = it / NSTAGE;
+            uint8_t* stage_base = smem + stage * STAGE_BYTES;
+            uint8_t* sA = stage_base;
+            uint8_t* sB = stage_base + BM * BK * 2;
+            uint32_t full_addr =
+                (uint32_t)__cvta_generic_to_shared(&full[stage]);
+            uint32_t empty_addr =
+                (uint32_t)__cvta_generic_to_shared(&empty[stage]);
+            mbar_wait(full_addr, generation & 1);
+
+            asm volatile("tcgen05.fence::after_thread_sync;");
+            uint32_t a_base = (uint32_t)__cvta_generic_to_shared(sA);
+            uint32_t b_base = (uint32_t)__cvta_generic_to_shared(sB);
+            uint32_t idesc = (1u << 4) | (1u << 7) | (1u << 10) |
+                             (8u << 17) | (8u << 24);
+            for (int kk = 0; kk < BK; kk += 16) {
+                uint64_t da = make_desc_sm100(a_base + kk * 2, 0, 1024, 2);
+                uint64_t db = make_desc_sm100(b_base + kk * 2, 0, 1024, 2);
+                uint32_t accum = it != 0 || kk != 0;
+                asm volatile(
+                    "{\n.reg .pred p;\nsetp.ne.b32 p, %4, 0;\n"
+                    "tcgen05.mma.cta_group::1.kind::f16 [%0], %1, %2, %3, p;\n}\n" ::
+                        "r"(taddr), "l"(da), "l"(db), "r"(idesc),
+                    "r"(accum));
+            }
+            asm volatile(
+                "tcgen05.commit.cta_group::1.mbarrier::arrive::one"
+                ".shared::cluster.b64 [%0];" ::
+                    "r"(empty_addr)
+                : "memory");
+
+            mbar_wait(empty_addr, generation & 1);
+            int next = it + NSTAGE;
+            if (next < iters) issue_tma(next);
+        }
+    }
+    __syncthreads();
+
+    asm volatile("tcgen05.fence::after_thread_sync;");
+    int row = warp * 32 + lane;
+    for (int col = 0; col < BN; col += 8) {
+        uint32_t src = taddr + ((uint32_t)(warp * 32) << 16) + col;
+        float r[8];
+        asm volatile(
+            "tcgen05.ld.sync.aligned.32x32b.x8.b32 "
+            "{%0,%1,%2,%3,%4,%5,%6,%7}, [%8];"
+            : "=f"(r[0]), "=f"(r[1]), "=f"(r[2]), "=f"(r[3]), "=f"(r[4]),
+              "=f"(r[5]), "=f"(r[6]), "=f"(r[7])
+            : "r"(src));
+        asm volatile("tcgen05.wait::ld.sync.aligned;");
+#pragma unroll
+        for (int i = 0; i < 8; ++i)
+            gD[(size_t)(tileM + row) * N + tileN + col + i] = r[i];
+    }
+    __syncthreads();
+    if (warp == 0)
+        asm volatile(
+            "tcgen05.dealloc.cta_group::1.sync.aligned.b32 %0, %1;" ::
+                "r"(taddr), "r"(BN));
+}
+
+static void encode_tmap(CUtensorMap* map, void* base, int rows, int K,
+                        int box_rows) {
+    cuuint64_t dims[2] = {(cuuint64_t)K, (cuuint64_t)rows};
+    cuuint64_t strides[1] = {(cuuint64_t)K * sizeof(__nv_bfloat16)};
+    cuuint32_t box[2] = {BK, (cuuint32_t)box_rows};
+    cuuint32_t elem_strides[2] = {1, 1};
+    CUresult result = cuTensorMapEncodeTiled(
+        map, CU_TENSOR_MAP_DATA_TYPE_BFLOAT16, 2, base, dims, strides, box,
+        elem_strides, CU_TENSOR_MAP_INTERLEAVE_NONE,
+        CU_TENSOR_MAP_SWIZZLE_128B, CU_TENSOR_MAP_L2_PROMOTION_NONE,
+        CU_TENSOR_MAP_FLOAT_OOB_FILL_NONE);
+    if (result != CUDA_SUCCESS) {
+        const char* name = nullptr;
+        cuGetErrorName(result, &name);
+        fprintf(stderr, "cuTensorMapEncodeTiled failed: %s\n",
+                name ? name : "unknown");
+        exit(1);
+    }
 }
 
 int main(int argc, char** argv) {
@@ -133,6 +283,8 @@ int main(int argc, char** argv) {
 
     // TODO:tensor map 从你的 4.2 原样复制。
     CUtensorMap tmapA = {}, tmapB = {};
+    encode_tmap(&tmapA, dA, M, K, BM);
+    encode_tmap(&tmapB, dB, N, K, BN);
 
     dim3 grid(M / BM, N / BN);
     // NSTAGE=3 时 72KB+对齐余量,超 48KB 静态上限,动态 smem 必须。
@@ -140,6 +292,11 @@ int main(int argc, char** argv) {
     CUDA_CHECK(cudaFuncSetAttribute(gemm_pipeline,
                                     cudaFuncAttributeMaxDynamicSharedMemorySize,
                                     (int)smemBytes));
+    int active_blocks = 0;
+    CUDA_CHECK(cudaOccupancyMaxActiveBlocksPerMultiprocessor(
+        &active_blocks, gemm_pipeline, 128, smemBytes));
+    printf("[config] S=%d smem/block=%zu B active_blocks/SM=%d\n", NSTAGE,
+           smemBytes, active_blocks);
     auto launch = [&] {
         gemm_pipeline<<<grid, 128, smemBytes>>>(dA, dB, dD, M, N, K, tmapA,
                                                 tmapB);

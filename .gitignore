@@ -42,6 +42,8 @@ assignment*/cuda/bin/
 *.cubin
 *.fatbin
 *.sass
+assignment02/team/c1_flashkda/results/**/mma16_vs_tcgen05
+assignment02/team/c1_flashkda/results/**/state_delta_tcgen05
 
 # Misc
 .DS_Store
@@ -54,4 +56,4 @@ secrets/
 
 # Organizer-only tooling (HPC Game 题库上传脚本等)
 tools/
-assignment02/run.sh
+# assignment02/run.sh is the tracked C1 Slurm validation entrypoint.

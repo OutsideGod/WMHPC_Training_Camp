@@ -20,19 +20,47 @@ __global__ void probe_kernel(const __nv_bfloat16* __restrict__ in,
                              uint8_t* __restrict__ dataOut,
                              uint8_t* __restrict__ sfOut, int M, int K) {
     // TODO: 与你的 quant kernel 同形的访存,xor 直通,无数学。
+    int groups_per_row = K / NVFP4_GROUP;
+    int total_groups = M * groups_per_row;
+    int num_ktiles = nvfp4_num_ktiles(K);
+    for (int linear = blockIdx.x * BLOCK + threadIdx.x; linear < total_groups;
+         linear += gridDim.x * BLOCK) {
+        int row = linear / groups_per_row;
+        int group = linear - row * groups_per_row;
+        const uint4* src = reinterpret_cast<const uint4*>(
+            in + (size_t)row * K + group * NVFP4_GROUP);
+        uint4 a = src[0];
+        uint4 b = src[1];
+        uint2 out = make_uint2(a.x ^ a.z ^ b.x ^ b.z,
+                               a.y ^ a.w ^ b.y ^ b.w);
+        *reinterpret_cast<uint2*>(dataOut + (size_t)row * K / 2 + group * 8) =
+            out;
+        sfOut[sf_swizzled_offset(row, group, num_ktiles)] =
+            (uint8_t)(out.x ^ out.y);
+    }
 }
 
 static void launch_probe(const __nv_bfloat16* in, uint8_t* dataOut,
                          uint8_t* sfOut, int M, int K, int sms) {
     // TODO: 启动配置。
-    (void)in; (void)dataOut; (void)sfOut; (void)M; (void)K; (void)sms;
+    constexpr int BLOCK = 256;
+    int groups = M * (K / NVFP4_GROUP);
+    int grid = (groups + BLOCK - 1) / BLOCK;
+    if (grid > sms * 8) grid = sms * 8;
+    probe_kernel<BLOCK><<<grid, BLOCK>>>(in, dataOut, sfOut, M, K);
 }
 
-int main() {
+int main(int argc, char** argv) {
     int sms;
     CUDA_CHECK(cudaDeviceGetAttribute(&sms, cudaDevAttrMultiProcessorCount, 0));
-    for (const auto& shape :
-         {std::pair{4096, 7168}, {16384, 4096}, {16384, 8192}}) {
+    int only = argc > 1 ? atoi(argv[1]) : -1;
+    const std::vector<std::pair<int, int>> shapes = {
+        {1, 4096}, {16, 4096}, {256, 4096}, {1024, 4096}, {4096, 4096},
+        {16384, 4096}, {4096, 7168}, {16384, 7168}, {4096, 8192},
+        {16384, 8192}};
+    for (int shape_i = 0; shape_i < (int)shapes.size(); ++shape_i) {
+        if (only >= 0 && shape_i != only) continue;
+        const auto& shape = shapes[shape_i];
         int M = shape.first;
         int K = shape.second;
         size_t n = (size_t)M * K;

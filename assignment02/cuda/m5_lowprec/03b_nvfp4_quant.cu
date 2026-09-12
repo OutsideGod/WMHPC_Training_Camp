@@ -33,12 +33,16 @@ static void host_ref(const std::vector<float>& x, int M, int K,
         }
 }
 
-int main() {
+int main(int argc, char** argv) {
     int sms;
     CUDA_CHECK(cudaDeviceGetAttribute(&sms, cudaDevAttrMultiProcessorCount, 0));
+    int only = argc > 1 ? atoi(argv[1]) : -1;
     long total_bad = 0;
-    for (const auto& shape :
-         {std::pair{128, 1024}, {200, 4096}, {4096, 7168}}) {
+    const std::vector<std::pair<int, int>> shapes = {
+        {128, 1024}, {200, 4096}, {4096, 7168}};
+    for (int shape_i = 0; shape_i < (int)shapes.size(); ++shape_i) {
+        if (only >= 0 && shape_i != only) continue;
+        const auto& shape = shapes[shape_i];
         int M = shape.first;
         int K = shape.second;
         size_t n = (size_t)M * K;

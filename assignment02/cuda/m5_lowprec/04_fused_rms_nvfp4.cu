@@ -26,6 +26,19 @@
 #include "e2m1_encode.h"
 #include "nvfp4_quant_kernel.h"
 
+#ifndef FUSED_BLOCK
+#define FUSED_BLOCK 128
+#endif
+#ifndef FUSED_GRID_MULT
+#define FUSED_GRID_MULT 16
+#endif
+#ifndef RMS_BLOCK
+#define RMS_BLOCK 128
+#endif
+#ifndef RMS_GRID_MULT
+#define RMS_GRID_MULT 32
+#endif
+
 // 给定的两步基线第一步:block-per-row 的 rms_norm,bf16 进出。
 // 允许修改或另写(公平基线的一部分:它调多快,对比就有多可信)。
 template <int BLOCK>
@@ -83,12 +96,82 @@ __global__ void rms_norm_baseline_kernel(const __nv_bfloat16* __restrict__ in,
 }
 
 // TODO(核心):融合 kernel。签名自定,在 launch_fused 里接上。
+template <int BLOCK>
+__global__ void fused_rms_nvfp4_kernel(
+    const __nv_bfloat16* __restrict__ in,
+    const __nv_bfloat16* __restrict__ w, uint8_t* __restrict__ dataOut,
+    uint8_t* __restrict__ sfOut, int M, int K, float eps) {
+    // TODO
+    __shared__ float red[BLOCK / 32];
+    int groups_per_row = K / NVFP4_GROUP;
+    int num_ktiles = nvfp4_num_ktiles(K);
+    for (int row = blockIdx.x; row < M; row += gridDim.x) {
+        const __nv_bfloat16* xr = in + (size_t)row * K;
+        float ss = 0.f;
+        for (int k = threadIdx.x * 8; k < K; k += BLOCK * 8) {
+            float4 raw = *reinterpret_cast<const float4*>(xr + k);
+            const __nv_bfloat162* pair =
+                reinterpret_cast<const __nv_bfloat162*>(&raw);
+#pragma unroll
+            for (int i = 0; i < 4; ++i) {
+                float2 f = __bfloat1622float2(pair[i]);
+                ss += f.x * f.x + f.y * f.y;
+            }
+        }
+#pragma unroll
+        for (int offset = 16; offset; offset >>= 1)
+            ss += __shfl_down_sync(0xffffffffu, ss, offset);
+        if ((threadIdx.x & 31) == 0) red[threadIdx.x >> 5] = ss;
+        __syncthreads();
+        if (threadIdx.x < 32) {
+            ss = threadIdx.x < BLOCK / 32 ? red[threadIdx.x] : 0.f;
+#pragma unroll
+            for (int offset = 16; offset; offset >>= 1)
+                ss += __shfl_down_sync(0xffffffffu, ss, offset);
+            if (threadIdx.x == 0) red[0] = 1.0f / sqrtf(ss / K + eps);
+        }
+        __syncthreads();
+        float rnorm = red[0];
+
+        for (int group = threadIdx.x; group < groups_per_row;
+             group += BLOCK) {
+            int base = group * NVFP4_GROUP;
+            float value[NVFP4_GROUP];
+            float amax = 0.f;
+#pragma unroll
+            for (int i = 0; i < NVFP4_GROUP; ++i) {
+                value[i] = __bfloat162float(xr[base + i]) * rnorm *
+                           __bfloat162float(w[base + i]);
+                amax = fmaxf(amax, fabsf(value[i]));
+            }
+            __nv_fp8_e4m3 sf8 = __nv_fp8_e4m3(amax / 6.0f);
+            float sf = float(sf8);
+            float inv = sf != 0.f ? 1.0f / sf : 0.f;
+            sfOut[sf_swizzled_offset(row, group, num_ktiles)] =
+                *reinterpret_cast<uint8_t*>(&sf8);
+
+            uint8_t packed[8];
+#pragma unroll
+            for (int i = 0; i < NVFP4_GROUP; i += 2) {
+                __nv_fp4x2_e2m1 pair(
+                    make_float2(value[i] * inv, value[i + 1] * inv));
+                packed[i / 2] = *reinterpret_cast<uint8_t*>(&pair);
+            }
+            *reinterpret_cast<uint2*>(dataOut + (size_t)row * K / 2 +
+                                      group * 8) =
+                *reinterpret_cast<uint2*>(packed);
+        }
+        __syncthreads();
+    }
+}
+
 static void launch_fused(const __nv_bfloat16* in, const __nv_bfloat16* w,
                          uint8_t* dataOut, uint8_t* sfOut, int M, int K,
                          float eps, int sms) {
-    // TODO
-    (void)in; (void)w; (void)dataOut; (void)sfOut; (void)M; (void)K;
-    (void)eps; (void)sms;
+    constexpr int BLOCK = FUSED_BLOCK;
+    int grid = M < sms * FUSED_GRID_MULT ? M : sms * FUSED_GRID_MULT;
+    fused_rms_nvfp4_kernel<BLOCK><<<grid, BLOCK>>>(
+        in, w, dataOut, sfOut, M, K, eps);
 }
 
 // TODO(公平基线):两步各自的最优启动配置。默认给的是一个起点。
@@ -96,8 +179,9 @@ static void launch_two_step(const __nv_bfloat16* in, const __nv_bfloat16* w,
                             __nv_bfloat16* mid, uint8_t* dataOut,
                             uint8_t* sfOut, int M, int K, float eps,
                             int sms) {
-    int grid = M < sms ? M : sms * 2;
-    rms_norm_baseline_kernel<512><<<grid, 512>>>(in, w, mid, M, K, eps);
+    int grid = M < sms * RMS_GRID_MULT ? M : sms * RMS_GRID_MULT;
+    rms_norm_baseline_kernel<RMS_BLOCK><<<grid, RMS_BLOCK>>>(in, w, mid, M,
+                                                             K, eps);
     launch_nvfp4_quant(mid, dataOut, sfOut, M, K, sms);
 }
 
@@ -131,17 +215,23 @@ static void host_ref(const std::vector<float>& x, const std::vector<float>& w,
     }
 }
 
-int main() {
+int main(int argc, char** argv) {
     int sms;
     CUDA_CHECK(cudaDeviceGetAttribute(&sms, cudaDevAttrMultiProcessorCount, 0));
     const float eps = 1e-6f;
+    int only = argc > 1 ? atoi(argv[1]) : -1;
+    printf("# config fused=%d threads grid<=%d*SM; rms=%d threads grid<=%d*SM\n",
+           FUSED_BLOCK, FUSED_GRID_MULT, RMS_BLOCK, RMS_GRID_MULT);
     printf("# %-6s %-6s %10s %10s %8s\n", "M", "K", "2step_us", "fused_us",
            "speedup");
     long total_bad = 0;
-    for (const auto& shape :
-         {std::pair{1, 4096}, {16, 4096}, {256, 4096}, {1024, 4096},
-          {4096, 4096}, {16384, 4096}, {4096, 7168}, {16384, 7168},
-          {4096, 8192}, {16384, 8192}}) {
+    const std::vector<std::pair<int, int>> shapes = {
+        {1, 4096}, {16, 4096}, {256, 4096}, {1024, 4096}, {4096, 4096},
+        {16384, 4096}, {4096, 7168}, {16384, 7168}, {4096, 8192},
+        {16384, 8192}};
+    for (int shape_i = 0; shape_i < (int)shapes.size(); ++shape_i) {
+        if (only >= 0 && shape_i != only) continue;
+        const auto& shape = shapes[shape_i];
         int M = shape.first;
         int K = shape.second;
         size_t n = (size_t)M * K;
